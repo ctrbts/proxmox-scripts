@@ -1,50 +1,467 @@
 # Proxmox Scripts
 
+Conjunto de scripts para automatizar tareas en Proxmox **PVE 7** _(Proxmox Virtual Environment 7)_
+
 ## Proxmox Tools
 
-### Instalación posterior de Proxmox VE 7
+- [Post instalación Proxmox VE7](#post-instalación-proxmox-ve7)
+- [Escalado de CPU](#escalado-de-cpu)
+- [Actualización masiva de contenedores](#actualización-masiva-de-contenedores)
+- [Tema oscuro en Proxmox](#tema-oscuro-en-proxmox)
+- [Post instalación Proxmox Backap Server](#post-instalación-proxmox-backap-server)
 
-El script dará opciones para deshabilitar Enterprise Repo, Agregar/Corregir fuentes PVE7, Habilitar Repo sin suscripción, Agregar Repo de prueba/Beta, Deshabilitar suscripción Nag, Actualizar Proxmox VE y Reiniciar PVE.
+## Sistemas operativos
 
-Ejecute lo siguiente en Proxmox Shell. ⚠️ SOLO PVE7
+- [Debian Stable](#debian-stable)
+- [Ubuntu Core](#ubuntu-core)
+- [AlpineLinux](#alpinelinux)
 
-bash -c "$(wget -qLO - https://github.com/tteck/Proxmox/raw/main/misc/post-pve-install.sh)"
+## Servidores de base de datos
 
-Se recomienda responder y a todas las opciones.
+- [MariaDB LXC](#mariadb-lxc)
+- [PostgreSQL LXC](#postgresql-lxc)
 
-### Escalado de CPU Proxmox
+## Servidores de archivos
 
-CPU Scaling Governor permite que el sistema operativo escale la frecuencia de la CPU hacia arriba o hacia abajo para ahorrar energía o mejorar el rendimiento. Gobernadores de escala genéricos
+- [Nginx Proxy](#nginx-proxy-manager-lxc)
+- [NextCloud](#nextcloudpi-lxc)
+- [RouterOS Mikrotik](#routeros-vm-de-mikrotik)
 
-Ejecute lo siguiente en Proxmox Shell.
+## Herramientas
 
-bash -c "$(wget -qLO - https://github.com/tteck/Proxmox/raw/main/misc/scaling-governor.sh)"
+- [Docker en LXC](#docker-lxc)
+- [Navegador de archivos](#navegador-de-archivos)
+- [Servidor de desarrollo con VSCode](#servidor-de-desarrollo-con-vscode)
+- [Administración del sistema con Webmin](#administración-del-sistema-con-webmin)
+- [Sincronización de archivos](#sincronización-de-archivos)
 
-### Actualizador Proxmox LXC
+## Proxmox Tools
 
-Actualice todos los LXC de forma rápida y sencilla (Ubuntu, Debian, Devuan, Alpine Linux, CentOS-Rocky-Alma, Fedora, ArchLinux)
+### Post instalación Proxmox VE7
 
-Ejecute lo siguiente en Proxmox Shell.
+**PVE7 Post Install** permite deshabilitar Enterprise Repo, agregar/corregir fuentes de PVE7, habilitar el repositorio sin suscripción, agregar repositorios Beta, deshabilitar suscripción Nag, actualizar Proxmox VE y reiniciar PVE.
 
-bash -c "$(wget -qLO - https://github.com/tteck/Proxmox/raw/main/misc/update-lxcs.sh)"
+Ejecute lo siguiente en una shell de Proxmox. ⚠️ SOLO PVE7
 
-### Proxmox Discord Tema oscuro
+    bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/misc/post-pve-install.sh)"
 
-Un tema oscuro para la interfaz de usuario web de Proxmox de Weilbyte
+Se recomienda responder `y` a todas las opciones.
 
-Ejecute lo siguiente en Proxmox Shell.
+### Escalado de CPU
 
-bash <(curl -s https://raw.githubusercontent.com/Weilbyte/PVEDiscordDark/master/PVEDiscordDark.sh ) instalar
+**CPU Scaling Governor** permite que el sistema operativo escale la frecuencia de la CPU hacia arriba o hacia abajo para ahorrar energía o mejorar el rendimiento.
 
-Para desinstalar el tema, simplemente ejecute el script con el comando de desinstalación.
+Ejecute lo siguiente en una shell de Proxmox.
 
-### Instalación posterior del servidor de copia de seguridad Proxmox
+    bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/misc/scaling-governor.sh)"
 
-Instalación posterior del servidor de copia de seguridad Proxmox
-El script dará opciones para deshabilitar Enterprise Repo, agregar/corregir fuentes de PBS, habilitar el repositorio sin suscripción, agregar repositorio de prueba, deshabilitar suscripción Nag, actualizar el servidor de copia de seguridad de Proxmox y reiniciar PBS.
+### Actualización masiva de contenedores
 
-Ejecute lo siguiente en Proxmox Shell. ⚠️ Servidor de respaldo Proxmox SOLAMENTE
+**Update LXC** actualiza todos los LXC de forma rápida y sencilla (Ubuntu, Debian, AlpineLinux, etc.)
 
-bash -c "$(wget -qLO - https://github.com/tteck/Proxmox/raw/main/misc/post-pbs-install.sh)"
+Ejecute lo siguiente en una shell de Proxmox.
 
-Se recomienda responder y a todas las opciones.
+    bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/misc/update-lxcs.sh)"
+
+### Tema oscuro en Proxmox
+
+Un tema oscuro para la interfaz de usuario web de Proxmox.
+
+Ejecute lo siguiente en una shell de Proxmox.
+
+    bash <(curl -s https://raw.githubusercontent.com/Weilbyte/PVEDiscordDark/master/PVEDiscordDark.sh ) install
+
+Para desinstalar el tema, simplemente ejecute el script con el comando `uninstall`.
+
+### Post instalación Proxmox Backap Server
+
+**PBS Post Install** permite deshabilitar el Enterprise Repo, agregar/corregir fuentes de PBS, habilitar el repositorio sin suscripción, agregar repositorio Beta, deshabilitar suscripción Nag, actualizar el servidor de copia de seguridad de Proxmox y reiniciar PBS.
+
+Ejecute lo siguiente en una shell de Proxmox. ⚠️ Proxmox Backup Server SOLAMENTE
+
+    bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/misc/post-pbs-install.sh)"
+
+Se recomienda responder `y` a todas las opciones.
+
+## Sistemas operativos
+
+### Debian Stable
+
+Para crear un LXC con Debian (curl & sudo), ejecute lo siguiente en una shell de Proxmox.
+
+    bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/debian.sh)"
+
+⚡ Default Settings: 512MiB RAM - 2GB Storage - 1vCPU ⚡
+
+⚙️ Para actualizar Debian
+
+Ejecute dentro de la consola del LXC
+
+    apt update && apt upgrade -y
+
+### Ubuntu Core
+
+Opción de seleccionar entre las últimas versiones LTS 18.04, 20.04 o 22.04
+
+Para crear LXC con Ubuntu (curl & sudo) LXC, ejecute lo siguiente en una shell de Proxmox.
+
+    bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/ubuntu.sh)"
+
+⚡ Default Settings: 512MiB RAM - 2GB Storage - 1vCPU - 22.04 ⚡
+
+⚙️ Para actualizar Ubuntu
+
+Ejecute dentro de la consola del LXC
+
+    apt update && apt upgrade -y
+
+### AlpineLinux
+
+Una distribución liviana orientada a la seguridad basada en musl y BusyBox.
+
+Para crear LXC con AlpineLinux, ejecute lo siguiente en una shell de Proxmox.
+
+    bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/alpine.sh)"
+
+⚡ Default Settings: 512MiB RAM - 100MiB Storage - 1vCPU ⚡
+
+⚙️ Default Password alpine
+
+⚙️ Para actualizar Alpine
+
+Ejecute dentro de la consola del LXC
+
+    apk update && apk upgrade
+
+## Servidores de base de datos
+
+### Mariadb LXC
+
+Opción para instalar Adminer
+
+Para crear un LXC con Mariadb, ejecute lo siguiente en una shell de Proxmox.
+
+    bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/mariadb-v4.sh)"
+
+Configuración predeterminada: 1GB de RAM - 4GB Almacenamiento - 1vCPU
+
+Para permitir a MariaDB escuchar conexiones remotas, necesita editar el archivo predeterminado. Para ello, abra la consola en su MariaDB lxc:
+
+    nano /etc/mysql/my.cnf
+
+Descomenta `port = 3306`, guardar y salir del editor con "Ctrl-O", "Enter" y "Ctrl X". Luego:
+
+    nano /etc/mysql/mariadb.conf.d/50-server.cnf
+
+Comente `bind-address = 127.0.0.1`, guardar y salir del editor con "Ctrl-O", "Enter" y "Ctrl X".
+
+Para las nuevas instalaciones de MariaDB, el siguiente paso es ejecutar el script de seguridad incluido. Este script cambia algunas de las opciones predeterminadas menos seguras. Lo usaremos para bloquear los logins remotos y para eliminar usuarios de bases de datos no utilizados.
+
+Ejecute lo siguiente:
+
+    sudo mysql_secure_installation
+
+Enter current password for root (enter for none): enter
+Switch to unix_socket authentication [Y/n] y
+Change the root password? [Y/n] n
+Remove anonymous users? [Y/n] y
+Disallow root login remotely? [Y/n] y
+Remove test database and access to it? [Y/n] y
+Reload privilege tables now? [Y/n] y
+
+Crearemos una nueva cuenta llamada admin con las mismas capacidades que la cuenta raíz, pero configurada para la autenticación de contraseñas.
+
+sudo mysql
+
+Pronto cambiará a MariaDB [(none)]>
+
+Crear un nuevo administrador local (Cambiar el nombre de usuario y la contraseña para que coincidan con sus preferencias)
+
+CREATE USER 'admin'@'localhost' IDENTIFIED BY 'password';
+
+Dar privilegios locales de root admin (Cambiar el nombre de usuario y la contraseña para que coincidan arriba)
+
+GRANT ALL ON _._ TO 'admin'@'localhost' IDENTIFIED BY 'password' WITH GRANT OPTION;
+
+Ahora, le daremos al usuario privilegios de root admin y acceso basado en contraseña que se puede conectar desde cualquier lugar de su red de área local (LAN), que tiene direcciones en la subred 192.168.100.0/24. Esto es una mejora porque abrir un servidor MariaDB hasta Internet y conceder acceso a todos los anfitriones es una mala práctica.. Cambia el nombre de usuario, la contraseña y la subred para que coincida con tus preferencias:
+
+GRANT ALL ON _._ TO 'admin'@'192.168.100.%' IDENTIFIED BY 'password' WITH GRANT OPTION;
+
+Enjuagar los privilegios para asegurar que se salven y estén disponibles en la sesión actual:
+
+FLUSH PRIVILEGES;
+
+Después de esto, salga de la caramelo MariaDB:
+
+exit
+
+Inicie sesión como el nuevo usuario de la base de datos que acaba de crear:
+
+mysql -u admin -p
+
+Crear una nueva base de datos:
+
+CREATE DATABASE homeassistant;
+
+Después de esto, salga de la caramelo MariaDB:
+
+exit
+
+Rebotar el lxc
+
+Comprobar el estado.
+
+sudo systemctl status mariadb
+
+Cambiar la grabadora: db_url:en su configuración de HA.yaml
+
+Ejemplo:
+
+recorder:
+db_url: mysql://admin:password@192.168.100.26:3306/homeassistant?charset=utf8mb4
+
+Para Actualizar Mariadb:
+
+Corre en la consola LXC
+
+apt update && apt upgrade -y
+
+Adminer (anósamente phpMinAdmin) es una herramienta de gestión de bases de datos completa
+
+Interfaz de administración: IP/adminor/
+
+### PostgreSQL LXC
+
+PostgreSQL LXC
+Opción para instalar Adminer
+
+PostgreSQL, también conocido como Postgres, es un sistema de gestión de bases de datos relacionales de código libre y de código abierto que enfatiza la extensibilidad y el cumplimiento SQL.
+
+Para crear un nuevo Proxmox PostgreSQL LXC, ejecute el siguiente en la Concha Proxmox.
+
+bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/postgresql-v4.sh)"
+
+Configuración predeterminada: 1GB de RAM - 4GB Almacenamiento - 1vCPU
+
+Para asegurarse de que nuestro PostgreSQL está asegurado con una contraseña fuerte, establezca una contraseña para su usuario de su sistema y luego cambie la cuenta de usuario de usuario de la base de datos predeterminada
+
+Cambiar contraseña de usuario
+
+passwd postgres
+
+Inicia sesión usando la cuenta del sistema Postgres
+
+su - postgres
+
+Ahora, cambie la contraseña de la base de datos Administrador
+
+psql -c "ALTER USER postgres WITH PASSWORD 'your-password';"
+
+Crear un nuevo usuario.
+
+psql
+
+CREATE USER admin WITH PASSWORD 'your-password';
+
+Crear una nueva base de datos:
+
+CREATE DATABASE homeassistant;
+
+Confiera todos los derechos o privilegios en la base de datos creada al usuario
+
+GRANT ALL ON DATABASE homeassistant TO admin;
+
+A la salida psql
+
+\q
+
+Luego tipo salida para volver a la raíz
+
+Cambiar la grabadora: db_url:en su configuración de HA.yaml
+
+Ejemplo:
+
+recorder:
+db_url: postgresql://admin:your-password@192.168.100.20:5432/homeassistant?client_encoding=utf8
+
+Actualizar PostgreSQL
+
+Corre en la consola LXC
+
+apt update && apt upgrade -y
+
+Adminer (an pasado phpMinAdmin) es una herramienta de gestión de bases de datos completa
+
+Interfaz de administración: IP/adminor/
+
+## Servidores de archivos
+
+### Nginx Proxy Manager LXC
+
+Nginx Proxy Manager Expone sus servicios de forma fácil y segura
+
+Para crear un nuevo Proxmox Nginx Proxy Manager LXC Container, ejecute el siguiente en la Concha Proxmox.
+
+bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/nginx-proxy-manager-v4.sh)"
+
+Configuración predeterminada: 1GB de RAM - 3GB Almacenamiento - 1vCPU
+
+Puerto de destino 80y 443desde su router a su Nginx Proxy Manager LXC IP.
+
+Añadir lo siguiente a su configuration.yamlen Asistente de Casa.
+
+http:
+use_x_forwarded_for: true
+trusted_proxies:
+
+- 192.168.100.27 ###(Nginx Proxy Manager LXC IP)###
+
+Nginx Proxy Manager Interfaz: IP:81
+
+Inicipable Iniciar sesión
+
+Nombre de usuario admin@example.com
+
+contraseña changeme
+
+Actualizar Nginx Proxy Manager
+
+Corre en la consola LXC
+
+bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/misc/npm_update.sh)"
+
+### NextCloudPi LXC
+
+NextCloudPi LXC es la solución de colaboración auto-anfitriada más popular.
+
+Para crear un nuevo Proxmox NextCloudPi LXC, ejecute el siguiente en la Concha Proxmox.
+
+bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/nextcloudpi-v4.sh)"
+
+Configuración predeterminada: 2GB de RAM - 8GB Almacenamiento - 2vCPU
+
+Establecer dominios de confianza nc
+
+Corre en la consola LXC
+
+sudo ncp-config
+
+Ir a config . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.0.0.0o una IP estática NextCloudPi
+
+Vuelva al aviso de comando y reinicie Apache2 sudo service apache2 restart
+
+NextCloudPi Interface: (https)IP/
+
+### RouterOS VM de Mikrotik
+
+Mikrotik RouterOS se puede instalar en un PC y lo convertirá en un router con todas las características necesarias: enrutación, cortafuegas, gestión de ancho de banda, punto de acceso inalámbrico, enlace de backhaul, pasarela de puntos calientes, servidor VPN y más.
+
+Para crear un nuevo Proxmox Mikrotik RouterOS VM, ejecute el siguiente en la Concha Proxmox.
+
+bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/vm/mikrotik-routeros-v4.sh)"
+
+Configuración por defecto: 1GB de RAM - 2GB Almacenamiento - 1CPU
+
+La configuración se realiza a través de la consola VM.
+
+## Herramientas
+
+### Docker LXC
+
+Options to Install Portainer and/or Docker Compose V2
+
+Docker is an open-source project for automating the deployment of applications as portable, self-sufficient containers.
+
+Para crear LXC con Docker LXC, ejecute lo siguiente en una shell de Proxmox.
+
+bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/docker-v4.sh)"
+
+⚡ Default Settings: 2GB RAM - 4GB Storage - 2vCPU ⚡
+
+⚠ Run Compose V2 by replacing the hyphen (-) with a space, using docker compose, instead of docker-compose.
+
+Portainer Interface: IP:9000
+
+⚙️ To Update
+
+Ejecute dentro de la consola del LXC
+
+apt update && apt upgrade -y
+
+### Navegador de archivos
+
+File Browser es un software de creación-su-prop-prop-bud--cuber-quete donde pueda instalarlo en un servidor, dirigirlo a una ruta y luego acceder a tus archivos a través de una bonita interfaz web. Muchas características disponibles.
+
+Para instalar el navegador de archivos, ejecute el siguiente en la consola LXC.
+
+bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/misc/filebrowser.sh)"
+
+Interfaz del navegador de archivos: IP:8080
+
+Initrimonio de inicio
+
+Nombre de usuario admin
+
+contraseña changeme
+
+Para actualizar el navegador de archivos
+
+curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bash
+
+### Servidor de desarrollo con VSCode
+
+Servidor de código VS
+
+VS Code Server es un servicio que puede ejecutar en una máquina de desarrollo remoto, como su PC de escritorio o una máquina virtual (VM). Le permite conectarse de forma segura a esa máquina remota desde cualquier lugar a través de una URL vscode.dev, sin el requisito de SSH.
+
+Para instalar VS Code Server, ejecute el siguiente lugar en la consola LXC.
+
+bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/misc/code-server.sh)"
+
+VS Code Server Interfaz: IP:8680
+
+### Administración del sistema con Webmin
+
+Administración del sistema de Webmin
+
+Si prefiere administrar todos los aspectos de su Proxmox LXC desde una interfaz gráfica en lugar de la interfaz de la línea de comandos, Webmin podría ser adecuado para usted. Los beneficios incluyen actualizaciones automáticas diarias de seguridad, copias de seguridad y restauración, gestor de archivos con editor, panel de control web y monitoreo de sistemas preconfigurados con alertas de correo electrónico opcionales.
+
+Para instalar Webmin System Administration (Screenshot), ejecute el siguiente en la consola LXC.
+
+bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/misc/webmin.sh)"
+
+Webmin Interface: (httpsIP:10000
+
+Inigertronate
+
+Nombre de usuario root
+
+contraseña root
+
+Actualizar Webmin
+
+Update from the Webmin UI
+
+Para desinstalar Webmin
+
+Corre en la consola LXC
+
+bash /etc/webmin/uninstall.sh
+
+### Sincronización de archivos
+
+[Syncthing](https://syncthing.net/) es un programa de sincronización de archivos continuo. Sincroniza archivos entre dos o más ordenadores.
+
+Para crear un nuevo LXC de sincronización de Proxmox, ejecute el siguiente comando en un shell de Proxmox.
+
+bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/syncthing-v4.sh)"
+
+Configuración predeterminada: 2GB de RAM - 8GB Almacenamiento - 2vCPU
+
+Para el inicializar, ejecute `syncthing --gui-address=0.0.0.0:8384` en la consola del LXC, luego vaya a su_lxc_ip:8384. En los ajustes configuramos la dirección IP LXC bajo la GUI (también configura la GUI Authentication User y GUI Authentication Password) y lapestaña Connections. Luego guarde y reinicie el LXC.
+
+Interfaz de sincronización: su_ip:8384
+
+Actualizar Syncthing
+
+apt update && apt upgrade -y

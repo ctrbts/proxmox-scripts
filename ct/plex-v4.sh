@@ -44,11 +44,11 @@ else
 fi
 function header_info {
   echo -e "${YW}
-    ____  __         
+    ____  __
    / __ \/ /__  _  __
   / /_/ / / _ \| |/_/
- / ____/ /  __/>  <  
-/_/v4 /_/\___/_/|_|  
+ / ____/ /  __/>  <
+/_/v4 /_/\___/_/|_|
 ${CL}"
 }
 function msg_info() {
@@ -323,8 +323,8 @@ msg_ok "Started LXC Container"
 lxc-attach -n $CTID -- bash -c "$(wget -qLO - https://raw.githubusercontent.com/tteck/Proxmox/main/setup/$var_install.sh)" || exit
 IP=$(pct exec $CTID ip a s dev eth0 | sed -n '/inet / s/\// /p' | awk '{print $2}')
 pct set $CTID -description "# ${APP} LXC
-### https://tteck.github.io/Proxmox/
-<a href='https://ko-fi.com/D1D7EP4GF'><img src='https://img.shields.io/badge/☕-Buy me a coffee-red' /></a>"
+
+
 msg_ok "Completed Successfully!\n"
 echo -e "${APP} should be reachable by going to the following URL.
              ${BL}http://${IP}:32400/web${CL}\n"

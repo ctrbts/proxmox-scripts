@@ -44,12 +44,12 @@ else
 fi
 function header_info {
   echo -e "${BL}
-    ____             __                 _____ ____    __ 
-   / __ \____  _____/ /_____ _________ / ___// __ \  / / 
-  / /_/ / __ \/ ___/ __/ __  / ___/ _ \\__ \/ / / / / /  
+    ____             __                 _____ ____    __
+   / __ \____  _____/ /_____ _________ / ___// __ \  / /
+  / /_/ / __ \/ ___/ __/ __  / ___/ _ \\__ \/ / / / / /
  / ____/ /_/ (__  ) /_/ /_/ / /  /  __/__/ / /_/ / / /___
 /_/    \____/____/\__/\__, /_/v4 \___/____/\___\_\/_____/
-                     /____/                              
+                     /____/
 ${CL}"
 }
 function msg_info() {
@@ -302,6 +302,6 @@ msg_ok "Started LXC Container"
 lxc-attach -n $CTID -- bash -c "$(wget -qLO - https://raw.githubusercontent.com/tteck/Proxmox/main/setup/$var_install.sh)" || exit
 IP=$(pct exec $CTID ip a s dev eth0 | sed -n '/inet / s/\// /p' | awk '{print $2}')
 pct set $CTID -description "# ${APP} LXC
-### https://tteck.github.io/Proxmox/
-<a href='https://ko-fi.com/D1D7EP4GF'><img src='https://img.shields.io/badge/☕-Buy me a coffee-red' /></a>"
+
+
 msg_ok "Completed Successfully!\n"

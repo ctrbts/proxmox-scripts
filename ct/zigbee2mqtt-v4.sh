@@ -46,9 +46,9 @@ function header_info {
   echo -e "${YW}
  _____   _       __             ___   __  _______  ____________
 /__  /  (_)___ _/ /_  ___  ___ |__ \ /  |/  / __ \/_  __/_  __/
-  / /  / / __  / __ \/ _ \/ _ \__/ // /|_/ / / / / / /   / /   
- / /__/ / /_/ / /_/ /  __/  __/ __// /  / / /_/ / / /   / /    
-/____/_/\__, /_.___/\___/\___/____/_/  /_/\___\_\/_/   /_/     
+  / /  / / __  / __ \/ _ \/ _ \__/ // /|_/ / / / / / /   / /
+ / /__/ / /_/ / /_/ /  __/  __/ __// /  / / /_/ / / /   / /
+/____/_/\__, /_.___/\___/\___/____/_/  /_/\___\_\/_/   /_/
    v4  /____/ 🐝
 ${CL}"
 }
@@ -316,6 +316,6 @@ msg_ok "Started LXC Container"
 lxc-attach -n $CTID -- bash -c "$(wget -qLO - https://raw.githubusercontent.com/tteck/Proxmox/main/setup/$var_install.sh)" || exit
 IP=$(pct exec $CTID ip a s dev eth0 | sed -n '/inet / s/\// /p' | awk '{print $2}')
 pct set $CTID -description "# ${APP} LXC
-### https://tteck.github.io/Proxmox/
-<a href='https://ko-fi.com/D1D7EP4GF'><img src='https://img.shields.io/badge/☕-Buy me a coffee-red' /></a>"
+
+
 msg_ok "Completed Successfully!\n"

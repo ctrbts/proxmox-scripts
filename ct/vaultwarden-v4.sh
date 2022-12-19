@@ -46,9 +46,9 @@ function header_info {
   echo -e "${CL}
  _    _____   __  ____  _______       _____    ____  ____  _______   __
 | |  / /   | / / / / / /_  __/ |     / /   |  / __ \/ __ \/ ____/ | / /
-| | / / /| |/ / / / /   / /  | | /| / / /| | / /_/ / / / / __/ /  |/ / 
-| |/ / ___ / /_/ / /___/ /   | |/ |/ / ___ |/ _, _/ /_/ / /___/ /|  /  
-|___/_/  |_\____/_____/_/ v4 |__/|__/_/  |_/_/ |_/_____/_____/_/ |_/   
+| | / / /| |/ / / / /   / /  | | /| / / /| | / /_/ / / / / __/ /  |/ /
+| |/ / ___ / /_/ / /___/ /   | |/ |/ / ___ |/ _, _/ /_/ / /___/ /|  /
+|___/_/  |_\____/_____/_/ v4 |__/|__/_/  |_/_/ |_/_____/_____/_/ |_/
 ${CL}"
 }
 function msg_info() {
@@ -301,8 +301,8 @@ msg_ok "Started LXC Container"
 lxc-attach -n $CTID -- bash -c "$(wget -qLO - https://raw.githubusercontent.com/tteck/Proxmox/main/setup/$var_install.sh)" || exit
 IP=$(pct exec $CTID ip a s dev eth0 | sed -n '/inet / s/\// /p' | awk '{print $2}')
 pct set $CTID -description "# ${APP} LXC
-### https://tteck.github.io/Proxmox/
-<a href='https://ko-fi.com/D1D7EP4GF'><img src='https://img.shields.io/badge/☕-Buy me a coffee-red' /></a>"
+
+
 msg_info "Setting Container to Normal Resources"
 pct set $CTID -memory 512
 pct set $CTID -cores 1

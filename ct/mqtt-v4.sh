@@ -46,9 +46,9 @@ function header_info {
 echo -e "${GN}
     __  _______  ____________
    /  |/  / __ \/_  __/_  __/
-  / /|_/ / / / / / /   / /   
- / /  / / /_/ / / /   / /    
-/_/  /_/\___\_\/_/ v4/_/     
+  / /|_/ / / / / / /   / /
+ / /  / / /_/ / / /   / /
+/_/  /_/\___\_\/_/ v4/_/
 ${CL}"
 }
 function msg_info() {
@@ -215,7 +215,7 @@ if [ $exitstatus = 0 ]; then
 else
     VLAN=",tag=$VLAN1"
     echo -e "${DGN}Using Vlan: ${BGN}$VLAN1${CL}"
-  fi  
+  fi
 fi
   if (whiptail --defaultno --title "SSH ACCESS" --yesno "Enable Root SSH Access?" 10 58); then
       echo -e "${DGN}Enable Root SSH Access: ${BGN}Yes${CL}"
@@ -246,7 +246,7 @@ fi
 }
 clear
 start_script
-if [ "$CT_TYPE" == "1" ]; then 
+if [ "$CT_TYPE" == "1" ]; then
  FEATURES="nesting=1,keyctl=1"
  else
  FEATURES="nesting=1"
@@ -277,6 +277,6 @@ msg_ok "Started LXC Container"
 lxc-attach -n $CTID -- bash -c "$(wget -qLO - https://raw.githubusercontent.com/tteck/Proxmox/main/setup/$var_install.sh)" || exit
 IP=$(pct exec $CTID ip a s dev eth0 | sed -n '/inet / s/\// /p' | awk '{print $2}')
 pct set $CTID -description "# ${APP} LXC
-### https://tteck.github.io/Proxmox/
-<a href='https://ko-fi.com/D1D7EP4GF'><img src='https://img.shields.io/badge/☕-Buy me a coffee-red' /></a>"
+
+
 msg_ok "Completed Successfully!\n"

@@ -43,12 +43,12 @@ else
 fi
 function header_info {
   cat <<"EOF"
-    ___ v4 __      _          
-   /   |  / /___  (_)___  ___ 
+    ___ v4 __      _
+   /   |  / /___  (_)___  ___
   / /| | / / __ \/ / __ \/ _ \
  / ___ |/ / /_/ / / / / /  __/
-/_/  |_/_/ .___/_/_/ /_/\___/ 
-        /_/                   
+/_/  |_/_/ .___/_/_/ /_/\___/
+        /_/
 
 EOF
 }
@@ -297,6 +297,6 @@ pct start $CTID
 msg_ok "Started LXC Container"
 IP=$(pct exec $CTID ip a s dev eth0 | sed -n '/inet / s/\// /p' | awk '{print $2}')
 pct set $CTID -description "# ${APP} ${var_version} LXC
-### https://tteck.github.io/Proxmox/
-<a href='https://ko-fi.com/D1D7EP4GF'><img src='https://img.shields.io/badge/☕-Buy me a coffee-red' /></a>"
+
+
 msg_ok "Completed Successfully!\n"

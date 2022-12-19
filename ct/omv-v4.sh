@@ -44,12 +44,12 @@ else
 fi
 function header_info {
   cat <<"EOF"
-   ____                   __  ___         ___      _    __            ____ 
+   ____                   __  ___         ___      _    __            ____
   / __ \____v4___  ____  /  |/  /__  ____/ (_)___ | |  / /___ ___  __/ / /_
  / / / / __ \/ _ \/ __ \/ /|_/ / _ \/ __  / / __ `/ | / / __ `/ / / / / __/
-/ /_/ / /_/ /  __/ / / / /  / /  __/ /_/ / / /_/ /| |/ / /_/ / /_/ / / /_  
-\____/ .___/\___/_/ /_/_/  /_/\___/\__,_/_/\__,_/ |___/\__,_/\__,_/_/\__/  
-    /_/                                                                    
+/ /_/ / /_/ /  __/ / / / /  / /  __/ /_/ / / /_/ /| |/ / /_/ / /_/ / / /_
+\____/ .___/\___/_/ /_/_/  /_/\___/\__,_/_/\__,_/ |___/\__,_/\__,_/_/\__/
+    /_/
 EOF
 }
 function msg_info() {
@@ -299,7 +299,7 @@ bash -c "$(wget -qLO - https://raw.githubusercontent.com/tteck/Proxmox/main/ct/c
 LXC_CONFIG=/etc/pve/lxc/${CTID}.conf
 cat <<EOF >>$LXC_CONFIG
 lxc.cgroup2.devices.allow: a
-lxc.cap.drop: 
+lxc.cap.drop:
 lxc.cgroup2.devices.allow: c 188:* rwm
 lxc.cgroup2.devices.allow: c 189:* rwm
 lxc.mount.entry: /dev/serial/by-id  dev/serial/by-id  none bind,optional,create=dir
@@ -312,8 +312,8 @@ msg_ok "Started LXC Container"
 lxc-attach -n $CTID -- bash -c "$(wget -qLO - https://raw.githubusercontent.com/tteck/Proxmox/main/setup/$var_install.sh)" || exit
 IP=$(pct exec $CTID ip a s dev eth0 | sed -n '/inet / s/\// /p' | awk '{print $2}')
 pct set $CTID -description "# ${APP} LXC
-### https://tteck.github.io/Proxmox/
-<a href='https://ko-fi.com/D1D7EP4GF'><img src='https://img.shields.io/badge/☕-Buy me a coffee-red' /></a>"
+
+
 msg_ok "Completed Successfully!\n"
 echo -e "${APP} should be reachable by going to the following URL.
          ${BL}http://${IP}${CL} \n"
