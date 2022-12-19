@@ -161,74 +161,57 @@ Ejecute lo siguiente:
 
     sudo mysql_secure_installation
 
-Enter current password for root (enter for none): enter
-Switch to unix_socket authentication [Y/n] y
-Change the root password? [Y/n] n
-Remove anonymous users? [Y/n] y
-Disallow root login remotely? [Y/n] y
-Remove test database and access to it? [Y/n] y
-Reload privilege tables now? [Y/n] y
+Y en el script interactivo debería contestar lo siguiente:
+
+    Enter current password for root (enter for none): enter
+    Switch to unix_socket authentication [Y/n] y
+    Change the root password? [Y/n] n
+    Remove anonymous users? [Y/n] y
+    Disallow root login remotely? [Y/n] y
+    Remove test database and access to it? [Y/n] y
+    Reload privilege tables now? [Y/n] y
 
 Crearemos una nueva cuenta llamada admin con las mismas capacidades que la cuenta raíz, pero configurada para la autenticación de contraseñas.
 
-sudo mysql
+    sudo mariadb
 
-Pronto cambiará a MariaDB [(none)]>
+Creamos un nuevo administrador (cambie el nombre de usuario y la contraseña para que coincidan con sus preferencias)
 
-Crear un nuevo administrador local (Cambiar el nombre de usuario y la contraseña para que coincidan con sus preferencias)
+En contenedores administrados por Proxmox no tiene sentido el acceso externo. Una cuenta local es sufciente y garantiza la seguridad del contenedor
 
-CREATE USER 'admin'@'localhost' IDENTIFIED BY 'password';
+    CREATE USER 'admin'@'localhost' IDENTIFIED BY 'password';
 
-Dar privilegios locales de root admin (Cambiar el nombre de usuario y la contraseña para que coincidan arriba)
+Le damos privilegios de root (cambie el nombre de usuario y la contraseña para que coincidan con sus preferencias)
 
-GRANT ALL ON _._ TO 'admin'@'localhost' IDENTIFIED BY 'password' WITH GRANT OPTION;
+    GRANT ALL ON *.* TO 'admin'@'localhost' IDENTIFIED BY 'password' WITH GRANT OPTION;
 
-Ahora, le daremos al usuario privilegios de root admin y acceso basado en contraseña que se puede conectar desde cualquier lugar de su red de área local (LAN), que tiene direcciones en la subred 192.168.100.0/24. Esto es una mejora porque abrir un servidor MariaDB hasta Internet y conceder acceso a todos los anfitriones es una mala práctica.. Cambia el nombre de usuario, la contraseña y la subred para que coincida con tus preferencias:
+Puede permitir el acceso root desde cualquier lugar de su red de área local (LAN), con direcciones en la subred 192.168.100.0/24. Cambie el nombre de usuario, la contraseña y la subred para que coincida con tus preferencias:
 
-GRANT ALL ON _._ TO 'admin'@'192.168.100.%' IDENTIFIED BY 'password' WITH GRANT OPTION;
+    GRANT ALL ON *.* TO 'admin'@'192.168.100.%' IDENTIFIED BY 'password' WITH GRANT OPTION;
 
-Enjuagar los privilegios para asegurar que se salven y estén disponibles en la sesión actual:
+Refrescar los privilegios para asegurar que se guarden y estén disponibles en la sesión actual:
 
-FLUSH PRIVILEGES;
+    FLUSH PRIVILEGES;
 
-Después de esto, salga de la caramelo MariaDB:
+Después de esto, salga de la consola de MariaDB:
 
-exit
+    exit
 
-Inicie sesión como el nuevo usuario de la base de datos que acaba de crear:
+Ya puede iniciar sesión como el nuevo usuario que acaba de crear:
 
-mysql -u admin -p
+    mysql -u admin -p
 
-Crear una nueva base de datos:
+Reiniciar el lxc
 
-CREATE DATABASE homeassistant;
+Puede comprobar el estado del servicio con:
 
-Después de esto, salga de la caramelo MariaDB:
+    sudo systemctl status mariadb
 
-exit
+Para actualizar Mariadb, dentro de la consola ejecute:
 
-Rebotar el lxc
+    apt update && apt upgrade -y
 
-Comprobar el estado.
-
-sudo systemctl status mariadb
-
-Cambiar la grabadora: db_url:en su configuración de HA.yaml
-
-Ejemplo:
-
-recorder:
-db_url: mysql://admin:password@192.168.100.26:3306/homeassistant?charset=utf8mb4
-
-Para Actualizar Mariadb:
-
-Corre en la consola LXC
-
-apt update && apt upgrade -y
-
-Adminer (anósamente phpMinAdmin) es una herramienta de gestión de bases de datos completa
-
-Interfaz de administración: IP/adminor/
+**Adminer** es una herramienta de gestión de bases de datos similar a phpMyAdmin que esta incorporada en el contenedor. Para acceder a Adminer vaya a `ip_de_su_contenedor/adminer`
 
 ### PostgreSQL LXC
 
@@ -298,37 +281,21 @@ Interfaz de administración: IP/adminor/
 
 ### Nginx Proxy Manager LXC
 
-Nginx Proxy Manager Expone sus servicios de forma fácil y segura
+[Nginx Proxy Manager](https://nginxproxymanager.com/) Expone sus servicios de forma fácil y segura. Para crear un LXC con Nginx Proxy Manager, ejecute lo siguiente en una shell de Proxmox.
 
-Para crear un nuevo Proxmox Nginx Proxy Manager LXC Container, ejecute el siguiente en la Concha Proxmox.
+    bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/nginx-proxy-manager-v4.sh)"
 
-bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/nginx-proxy-manager-v4.sh)"
+⚡ Default Settings: 1GB RAM - 3GB Storage - 1vCPU ⚡
 
-Configuración predeterminada: 1GB de RAM - 3GB Almacenamiento - 1vCPU
+⚙️ Puerto de destino `80` y `443`. GUI `ip_lxc:81`
 
-Puerto de destino 80y 443desde su router a su Nginx Proxy Manager LXC IP.
+⚙️ Login inicial
 
-Añadir lo siguiente a su configuration.yamlen Asistente de Casa.
+usuario `admin@example.com` contraseña `changeme`
 
-http:
-use_x_forwarded_for: true
-trusted_proxies:
+⚙️ Actualizar Nginx Proxy Manager
 
-- 192.168.100.27 ###(Nginx Proxy Manager LXC IP)###
-
-Nginx Proxy Manager Interfaz: IP:81
-
-Inicipable Iniciar sesión
-
-Nombre de usuario admin@example.com
-
-contraseña changeme
-
-Actualizar Nginx Proxy Manager
-
-Corre en la consola LXC
-
-bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/misc/npm_update.sh)"
+    bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/misc/npm_update.sh)"
 
 ### NextCloudPi LXC
 
