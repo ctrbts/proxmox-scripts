@@ -395,7 +395,7 @@ Si prefiere administrar todos los aspectos de su Proxmox LXC desde una interfaz 
 
 Para instalar Webmin System Administration (Screenshot), ejecute el siguiente en la consola LXC.
 
-bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/misc/webmin.sh)"
+    bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/misc/webmin.sh)"
 
 Webmin Interface: (httpsIP:10000
 
