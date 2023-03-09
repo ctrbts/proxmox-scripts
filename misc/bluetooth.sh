@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
+
+# Copyright (c) 2021-2023 tteck
+# Author: tteck (tteckster)
+# License: MIT
+# https://github.com/tteck/Proxmox/raw/main/LICENSE
+
+if command -v pveversion >/dev/null 2>&1; then echo -e "⚠️  Can't Run from the Proxmox Shell"; exit; fi
 set -e
 clear
 
@@ -34,7 +41,7 @@ clear
 
 EOF
 read -r -p "Switch from dbus-daemon to dbus-broker? <y/N> " prompt
-if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]; then
+if [[ "${prompt,,}" =~ ^(y|yes)$ ]]; then
 cat <<EOF >>/etc/apt/sources.list
 deb http://deb.debian.org/debian bullseye-backports main contrib non-free
 
@@ -45,7 +52,7 @@ apt-get -t bullseye-backports install -y dbus-broker &>/dev/null
 systemctl enable dbus-broker.service &>/dev/null
 fi
 read -r -p "Install BlueZ? <y/N> " prompt
-if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]; then
+if [[ "${prompt,,}" =~ ^(y|yes)$ ]]; then
 apt-get -t bullseye-backports install -y bluez* &>/dev/null
 fi
 echo -e "Finished, reboot for changes to take affect"

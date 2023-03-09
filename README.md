@@ -95,15 +95,11 @@ Para crear un LXC con Debian (curl & sudo), ejecute lo siguiente en una shell de
 
 ⚙️ Para actualizar Debian
 
-Ejecute dentro de la consola del LXC
-
-    apt update && apt upgrade -y
+Ejecute dentro de la consola del contenedor: *apt update && apt upgrade -y*
 
 ### Ubuntu Core
 
-Opción de seleccionar entre las últimas versiones LTS 18.04, 20.04 o 22.04
-
-Para crear LXC con Ubuntu (curl & sudo) LXC, ejecute lo siguiente en una shell de Proxmox.
+Para crear LXC con Ubuntu, ejecute lo siguiente en una shell de Proxmox.
 
     bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/ubuntu.sh)"
 
@@ -111,9 +107,7 @@ Para crear LXC con Ubuntu (curl & sudo) LXC, ejecute lo siguiente en una shell d
 
 ⚙️ Para actualizar Ubuntu
 
-Ejecute dentro de la consola del LXC
-
-    apt update && apt upgrade -y
+Ejecute dentro de la consola del contenedor: *apt update && apt upgrade -y*
 
 ### AlpineLinux
 
@@ -129,9 +123,7 @@ Para crear LXC con AlpineLinux, ejecute lo siguiente en una shell de Proxmox.
 
 ⚙️ Para actualizar Alpine
 
-Ejecute dentro de la consola del LXC
-
-    apk update && apk upgrade
+Ejecute dentro de la consola del contenedor: *apk update && apk upgrade*
 
 ## Servidores de base de datos
 

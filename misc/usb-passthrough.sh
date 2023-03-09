@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+
+# Copyright (c) 2021-2023 tteck
+# Author: tteck (tteckster)
+# License: MIT
+# https://github.com/tteck/Proxmox/raw/main/LICENSE
+
 echo -e "\e[1;33m This script will allow USB passthrough to a PRIVILEGED LXC Container ONLY\e[0m"
 while true; do
   read -p "Did you replace 106 with your LXC ID? Proceed(y/n)?" yn
@@ -9,31 +15,6 @@ while true; do
   esac
 done
 
-set -o errexit
-set -o errtrace
-set -o nounset
-set -o pipefail
-shopt -s expand_aliases
-alias die='EXIT=$? LINE=$LINENO error_exit'
-trap die ERR
-trap cleanup EXIT
-
-function error_exit() {
-  trap - ERR
-  local DEFAULT='Unknown failure occured.'
-  local REASON="\e[97m${1:-$DEFAULT}\e[39m"
-  local FLAG="\e[91m[ERROR] \e[93m$EXIT@$LINE"
-  msg "$FLAG $REASON"
-  exit $EXIT
-}
-function msg() {
-  local TEXT="$1"
-  echo -e "$TEXT"
-}
-function cleanup() {
-  popd >/dev/null
-  rm -rf $TEMP_DIR
-}
 TEMP_DIR=$(mktemp -d)
 pushd $TEMP_DIR >/dev/null
 CHAR_DEVS+=("166:.*")

@@ -1,4 +1,10 @@
-#!/usr/bin/env bash -ex
+#!/usr/bin/env bash
+
+# Copyright (c) 2021-2023 tteck
+# Author: tteck (tteckster)
+# License: MIT
+# https://github.com/tteck/Proxmox/raw/main/LICENSE
+
 set -euo pipefail
 shopt -s inherit_errexit nullglob
 YW=$(echo "\033[33m")
@@ -52,7 +58,7 @@ function msg_ok() {
 clear
 header_info
 read -r -p "Disable Enterprise Repository? <y/N> " prompt
-if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]; then
+if [[ "${prompt,,}" =~ ^(y|yes)$ ]]; then
     msg_info "Disabling Enterprise Repository"
     sleep 2
     sed -i "s/^deb/#deb/g" /etc/apt/sources.list.d/pbs-enterprise.list
@@ -60,7 +66,7 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
 fi
 
 read -r -p "Add/Correct PBS Sources (sources.list)? <y/N> " prompt
-if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]; then
+if [[ "${prompt,,}" =~ ^(y|yes)$ ]]; then
     msg_info "Adding or Correcting PBS Sources"
     cat <<EOF >/etc/apt/sources.list
 deb http://ftp.debian.org/debian bullseye main contrib
@@ -72,7 +78,7 @@ EOF
 fi
 
 read -r -p "Enable No-Subscription Repository? <y/N> " prompt
-if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]; then
+if [[ "${prompt,,}" =~ ^(y|yes)$ ]]; then
     msg_info "Enabling No-Subscription Repository"
     cat <<EOF >>/etc/apt/sources.list
 deb http://download.proxmox.com/debian/pbs bullseye pbs-no-subscription
@@ -82,7 +88,7 @@ EOF
 fi
 
 read -r -p "Add (Disabled) Beta/Test Repository? <y/N> " prompt
-if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]; then
+if [[ "${prompt,,}" =~ ^(y|yes)$ ]]; then
     msg_info "Adding Beta/Test Repository and set disabled"
     cat <<EOF >>/etc/apt/sources.list
 # deb http://download.proxmox.com/debian/pbs bullseye pbstest
@@ -92,7 +98,7 @@ EOF
 fi
 
 read -r -p "Disable Subscription Nag? <y/N> " prompt
-if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]; then
+if [[ "${prompt,,}" =~ ^(y|yes)$ ]]; then
     msg_info "Disabling Subscription Nag"
     echo "DPkg::Post-Invoke { \"dpkg -V proxmox-widget-toolkit | grep -q '/proxmoxlib\.js$'; if [ \$? -eq 1 ]; then { echo 'Removing subscription nag from UI...'; sed -i '/data.status/{s/\!//;s/active/NoMoreNagging/}' /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js; }; fi\"; };" >/etc/apt/apt.conf.d/no-nag-script
     apt --reinstall install proxmox-widget-toolkit &>/dev/null
@@ -100,7 +106,7 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
 fi
 
 read -r -p "Update Proxmox Backup Server now? <y/N> " prompt
-if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]; then
+if [[ "${prompt,,}" =~ ^(y|yes)$ ]]; then
     msg_info "Updating Proxmox Backup Server (Patience)"
     apt-get update &>/dev/null
     apt-get -y dist-upgrade &>/dev/null
@@ -108,7 +114,7 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
 fi
 
 read -r -p "Reboot Proxmox Backup Server now? <y/N> " prompt
-if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]; then
+if [[ "${prompt,,}" =~ ^(y|yes)$ ]]; then
     msg_info "Rebooting Proxmox Backup Server"
     sleep 2
     msg_ok "Completed Post Install Routines"
