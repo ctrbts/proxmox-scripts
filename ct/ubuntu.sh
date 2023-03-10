@@ -124,7 +124,7 @@ function default_settings() {
   echo -e "${BL}Creating a ${APP} LXC using the above default settings${CL}"
 }
 function advanced_settings() {
-  var_version=$(whiptail --title "UBUNTU VERSION" --radiolist "Choose Version" 11 58 4 \
+  var_version=$(whiptail --title "UBUNTU VERSION" --radiolist "Choose Version" 11 58 3 \
     "18.04" "Bionic" OFF \
     "20.04" "Focal" OFF \
     "22.04" "Jammy" ON \
