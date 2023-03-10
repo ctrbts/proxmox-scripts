@@ -133,7 +133,7 @@ Opción para instalar Adminer
 
 Para crear un LXC con Mariadb, ejecute lo siguiente en una shell de Proxmox.
 
-    bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/mariadb-v4.sh)"
+    bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/mariadb.sh)"
 
 Configuración predeterminada: 1GB de RAM - 4GB Almacenamiento - 1vCPU
 
