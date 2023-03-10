@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# Copyright (c) 2021-2023 tteck
+# Author: tteck (tteckster)
+# License: MIT
+# https://github.com/tteck/Proxmox/raw/main/LICENSE
+
 function header_info {
 clear
 cat <<"EOF"
@@ -123,7 +128,6 @@ function advanced_settings() {
     "18.04" "Bionic" OFF \
     "20.04" "Focal" OFF \
     "22.04" "Jammy" ON \
-    "22.10" "Kinetic" OFF \
     3>&1 1>&2 2>&3)
   exitstatus=$?
   if [ $exitstatus = 0 ]; then echo -e "${DGN}Using Ubuntu Version: ${BGN}$var_version${CL}"; fi
@@ -384,11 +388,12 @@ pct start $CTID
 msg_ok "Started LXC Container"
 lxc-attach -n $CTID -- bash -c "$(wget -qLO - https://raw.githubusercontent.com/ctrbts/proxmox-scripts/main/install/$var_install.sh)" || exit
 IP=$(pct exec $CTID ip a s dev eth0 | awk '/inet / {print $2}' | cut -d/ -f1)
-pct set $CTID -description "# ${APP} ${var_version} LXC
+pct set $CTID -description "
+# ${APP} ${var_version} LXC
 ### https://ctrbts.gitub.io/proxmox-scripts/
 <details>
  <summary>Leer más</summary>
   <p>puto el que lee ..</p>
 </details>
-<a href='https://cafecito.app/ctrbts'><img src='https://img.shields.io/badge/☕-Comprame un cafecito' /></a>"
+"
 msg_ok "Completed Successfully!\n"
