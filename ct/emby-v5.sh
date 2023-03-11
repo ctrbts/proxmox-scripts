@@ -9,12 +9,12 @@ function header_info {
 clear
 cat <<"EOF"
 
-    ______          __         
+    ______          __
    / ____/___ v5_  / /_  __  __
   / __/ / __  __ \/ __ \/ / / /
- / /___/ / / / / / /_/ / /_/ / 
-/_____/_/ /_/ /_/_.___/\__, /  
-                      /____/   
+ / /___/ / / / / / /_/ / /_/ /
+/_____/_/ /_/ /_/_.___/\__, /
+                      /____/
 EOF
 }
 header_info
@@ -358,7 +358,7 @@ fi
 
 if ! command -v pveversion >/dev/null 2>&1 && [[ ! -d /opt/emby-server ]]; then
   msg_error "No ${APP} Installation Found!"
-  exit 
+  exit
 fi
 
 if ! command -v pveversion >/dev/null 2>&1; then
@@ -377,7 +377,7 @@ else
   FEATURES="nesting=1"
 fi
 TEMP_DIR=$(mktemp -d)
-pushd $TEMP_DIR >/dev/null 
+pushd $TEMP_DIR >/dev/null
 export tz=$timezone
 export DISABLEIPV6=$DISABLEIP6
 export APPLICATION=$APP
@@ -418,7 +418,7 @@ msg_ok "Started LXC Container"
 lxc-attach -n $CTID -- bash -c "$(wget -qLO - https://raw.githubusercontent.com/tteck/Proxmox/main/install/$var_install.sh)" || exit
 IP=$(pct exec $CTID ip a s dev eth0 | awk '/inet / {print $2}' | cut -d/ -f1)
 pct set $CTID -description "# ${APP} LXC
-### https://tteck.github.io/Proxmox/
+### https://github.com/ctrbts/proxmox-scripts/
 <a href='https://ko-fi.com/D1D7EP4GF'><img src='https://img.shields.io/badge/☕-Buy me a coffee-red' /></a>"
 msg_ok "Completed Successfully!\n"
 echo -e "${APP} should be reachable by going to the following URL.

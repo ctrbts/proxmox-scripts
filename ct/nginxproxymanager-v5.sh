@@ -9,13 +9,13 @@ function header_info {
 clear
 cat <<"EOF"
 
-    _   __      _               ____                           __  ___                                 
+    _   __      _               ____                           __  ___
    / | / /___ _(_)___  _  __   / __ \_________v5_  ____  __   /  |/  /___ _____  ____ _____ ____  _____
   /  |/ / __  / / __ \| |/_/  / /_/ / ___/ __ \| |/_/ / / /  / /|_/ / __  / __ \/ __  / __  / _ \/ ___/
- / /|  / /_/ / / / / />  <   / ____/ /  / /_/ />  </ /_/ /  / /  / / /_/ / / / / /_/ / /_/ /  __/ /    
-/_/ |_/\__, /_/_/ /_/_/|_|  /_/   /_/   \____/_/|_|\__, /  /_/  /_/\__,_/_/ /_/\__,_/\__, /\___/_/     
-      /____/                                      /____/                            /____/             
- 
+ / /|  / /_/ / / / / />  <   / ____/ /  / /_/ />  </ /_/ /  / /  / / /_/ / / / / /_/ / /_/ /  __/ /
+/_/ |_/\__, /_/_/ /_/_/|_|  /_/   /_/   \____/_/|_|\__, /  /_/  /_/\__,_/_/ /_/\__,_/\__, /\___/_/
+      /____/                                      /____/                            /____/
+
 EOF
 }
 header_info
@@ -325,7 +325,7 @@ header_info
 RELEASE=$(curl -s https://api.github.com/repos/NginxProxyManager/nginx-proxy-manager/releases/latest |
   grep "tag_name" |
   awk '{print substr($2, 3, length($2)-4) }')
-  
+
 msg_info "Stopping Services"
 systemctl stop openresty
 systemctl stop npm
@@ -449,7 +449,7 @@ fi
 
 if ! command -v pveversion >/dev/null 2>&1 && [[ ! -f /lib/systemd/system/npm.service ]]; then
   msg_error "No ${APP} Installation Found!"
-  exit 
+  exit
 fi
 
 if ! command -v pveversion >/dev/null 2>&1; then
@@ -468,7 +468,7 @@ else
   FEATURES="nesting=1"
 fi
 TEMP_DIR=$(mktemp -d)
-pushd $TEMP_DIR >/dev/null 
+pushd $TEMP_DIR >/dev/null
 export tz=$timezone
 export DISABLEIPV6=$DISABLEIP6
 export APPLICATION=$APP
@@ -497,7 +497,7 @@ msg_ok "Started LXC Container"
 lxc-attach -n $CTID -- bash -c "$(wget -qLO - https://raw.githubusercontent.com/tteck/Proxmox/main/install/$var_install.sh)" || exit
 IP=$(pct exec $CTID ip a s dev eth0 | awk '/inet / {print $2}' | cut -d/ -f1)
 pct set $CTID -description "# ${APP} LXC
-### https://tteck.github.io/Proxmox/
+### https://github.com/ctrbts/proxmox-scripts/
 <a href='https://ko-fi.com/D1D7EP4GF'><img src='https://img.shields.io/badge/☕-Buy me a coffee-red' /></a>"
 msg_ok "Completed Successfully!\n"
 echo -e "${APP} should be reachable by going to the following URL.

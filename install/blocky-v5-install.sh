@@ -332,7 +332,7 @@ hostsFile:
 #logPrivacy: false
 
 # optional: add EDE error codes to dns response
-#ede: 
+#ede:
   # enabled if true, Default: false
   #enable: true
 EOF
@@ -354,7 +354,7 @@ $STD systemctl enable --now blocky
 msg_ok "Created Service"
 
 echo "export TERM='xterm-256color'" >>/root/.bashrc
-echo -e "$APPLICATION LXC provided by https://tteck.github.io/Proxmox/\n" > /etc/motd
+echo -e "$APPLICATION LXC provided by https://github.com/ctrbts/proxmox-scripts/\n" > /etc/motd
 chmod -x /etc/update-motd.d/*
 if ! getent shadow root | grep -q "^root:[^\!*]"; then
   msg_info "Customizing Container"

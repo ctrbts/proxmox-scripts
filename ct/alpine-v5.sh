@@ -9,12 +9,12 @@ function header_info {
 clear
 cat <<"EOF"
 
-    ___ v5 __      _          
-   /   |  / /___  (_)___  ___ 
+    ___ v5 __      _
+   /   |  / /___  (_)___  ___
   / /| | / / __ \/ / __ \/ _ \
  / ___ |/ / /_/ / / / / /  __/
-/_/  |_/_/ .___/_/_/ /_/\___/ 
-        /_/                   
+/_/  |_/_/ .___/_/_/ /_/\___/
+        /_/
 
 EOF
 }
@@ -350,7 +350,7 @@ else
   FEATURES="nesting=1"
 fi
 TEMP_DIR=$(mktemp -d)
-pushd $TEMP_DIR >/dev/null 
+pushd $TEMP_DIR >/dev/null
 export tz=$timezone
 export DISABLEIPV6=$DISABLEIP6
 export APPLICATION=$APP
@@ -378,6 +378,6 @@ pct start $CTID
 msg_ok "Started LXC Container"
 IP=$(pct exec $CTID ip a s dev eth0 | awk '/inet / {print $2}' | cut -d/ -f1)
 pct set $CTID -description "# ${APP} ${var_version} LXC
-### https://tteck.github.io/Proxmox/
+### https://github.com/ctrbts/proxmox-scripts/
 <a href='https://ko-fi.com/D1D7EP4GF'><img src='https://img.shields.io/badge/☕-Buy me a coffee-red' /></a>"
 msg_ok "Completed Successfully!\n"

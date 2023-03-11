@@ -89,7 +89,7 @@ msg_info "Installing Dependencies"
 $STD apt-get install -y curl
 $STD apt-get install -y sudo
 $STD apt-get install -y mc
-$STD apt-get install -y sqlite3 
+$STD apt-get install -y sqlite3
 msg_ok "Installed Dependencies"
 
 msg_info "Installing Whisparr"
@@ -121,7 +121,7 @@ systemctl enable --now -q whisparr
 msg_ok "Created Service"
 
 echo "export TERM='xterm-256color'" >>/root/.bashrc
-echo -e "$APPLICATION LXC provided by https://tteck.github.io/Proxmox/\n" > /etc/motd
+echo -e "$APPLICATION LXC provided by https://github.com/ctrbts/proxmox-scripts/\n" > /etc/motd
 chmod -x /etc/update-motd.d/*
 if ! getent shadow root | grep -q "^root:[^\!*]"; then
   msg_info "Customizing Container"

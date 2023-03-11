@@ -9,13 +9,13 @@ function header_info {
 clear
 cat <<"EOF"
 
-    ____             __            __    _                 
+    ____             __            __    _
    / __ \____  _____/ /____  __   / /   (_)___v5__  ___  __
   / /_/ / __ \/ ___/ //_/ / / /  / /   / / __ \/ / / / |/_/
- / _, _/ /_/ / /__/ ,< / /_/ /  / /___/ / / / / /_/ />  <  
-/_/ |_|\____/\___/_/|_|\__, /  /_____/_/_/ /_/\__,_/_/|_|  
-                      /____/                               
- 
+ / _, _/ /_/ / /__/ ,< / /_/ /  / /___/ / / / / /_/ />  <
+/_/ |_|\____/\___/_/|_|\__, /  /_____/_/_/ /_/\__,_/_/|_|
+                      /____/
+
 EOF
 }
 header_info
@@ -340,7 +340,7 @@ fi
 
 if ! command -v pveversion >/dev/null 2>&1 && [[ ! -d /etc/pacman.d ]]; then
   msg_error "No ${APP} Installation Found!"
-  exit 
+  exit
 fi
 
 if ! command -v pveversion >/dev/null 2>&1; then
@@ -359,7 +359,7 @@ else
   FEATURES="nesting=1"
 fi
 TEMP_DIR=$(mktemp -d)
-pushd $TEMP_DIR >/dev/null 
+pushd $TEMP_DIR >/dev/null
 export tz=$timezone
 export DISABLEIPV6=$DISABLEIP6
 export APPLICATION=$APP
@@ -387,6 +387,6 @@ pct start $CTID
 msg_ok "Started LXC Container"
 IP=$(pct exec $CTID ip a s dev eth0 | awk '/inet / {print $2}' | cut -d/ -f1)
 pct set $CTID -description "# ${APP} ${var_version} LXC
-### https://tteck.github.io/Proxmox/
+### https://github.com/ctrbts/proxmox-scripts/
 <a href='https://ko-fi.com/D1D7EP4GF'><img src='https://img.shields.io/badge/☕-Buy me a coffee-red' /></a>"
 msg_ok "Completed Successfully!\n"

@@ -97,8 +97,8 @@ if [[ -z "$(grep -w "100000" /proc/self/uid_map)" ]]; then
   msg_info "Setting Up Hardware Acceleration"
   $STD apt-get -y install \
     va-driver-all \
-    ocl-icd-libopencl1 
-  if [[ ${PCT_OSVERSION} == "20.04" ]]; then 
+    ocl-icd-libopencl1
+  if [[ ${PCT_OSVERSION} == "20.04" ]]; then
   $STD apt-get install -y beignet-opencl-icd
   else
   $STD apt-get install -y intel-opencl-icd
@@ -120,7 +120,7 @@ $STD apt-get -o Dpkg::Options::="--force-confold" install -y plexmediaserver
 msg_ok "Installed Plex Media Server"
 
 echo "export TERM='xterm-256color'" >>/root/.bashrc
-echo -e "$APPLICATION LXC provided by https://tteck.github.io/Proxmox/\n" > /etc/motd
+echo -e "$APPLICATION LXC provided by https://github.com/ctrbts/proxmox-scripts/\n" > /etc/motd
 chmod -x /etc/update-motd.d/*
 if ! getent shadow root | grep -q "^root:[^\!*]"; then
   msg_info "Customizing Container"

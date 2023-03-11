@@ -92,7 +92,7 @@ $STD apt-get install -y --no-install-recommends \
 	python3-pip \
 	python3-dev \
 	python3-setuptools \
-	python3-wheel 
+	python3-wheel
 msg_ok "Installed Python3"
 
 msg_info "Installing Dependencies (Patience)"
@@ -149,7 +149,7 @@ msg_ok "Installed JBIG2"
 msg_info "Installing Paperless-ngx (Patience)"
 Paperlessngx=$(wget -q https://github.com/paperless-ngx/paperless-ngx/releases/latest -O - | grep "title>Release" | cut -d " " -f 5)
 cd /opt
-$STD wget https://github.com/paperless-ngx/paperless-ngx/releases/download/$Paperlessngx/paperless-ngx-$Paperlessngx.tar.xz 
+$STD wget https://github.com/paperless-ngx/paperless-ngx/releases/download/$Paperlessngx/paperless-ngx-$Paperlessngx.tar.xz
 $STD tar -xf paperless-ngx-$Paperlessngx.tar.xz -C /opt/
 mv paperless-ngx paperless
 rm paperless-ngx-$Paperlessngx.tar.xz
@@ -267,7 +267,7 @@ $STD systemctl enable --now paperless-consumer paperless-webserver paperless-sch
 msg_ok "Created Services"
 
 echo "export TERM='xterm-256color'" >>/root/.bashrc
-echo -e "$APPLICATION LXC provided by https://tteck.github.io/Proxmox/\n" > /etc/motd
+echo -e "$APPLICATION LXC provided by https://github.com/ctrbts/proxmox-scripts/\n" > /etc/motd
 chmod -x /etc/update-motd.d/*
 if ! getent shadow root | grep -q "^root:[^\!*]"; then
   msg_info "Customizing Container"

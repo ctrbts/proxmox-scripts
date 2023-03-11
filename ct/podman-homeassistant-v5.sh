@@ -9,16 +9,16 @@ function header_info {
 clear
 cat <<"EOF"
 
-                     ____            __                                      
-                    / __ \____  ____/ /___ ___  ____ _____                   
-                   / /_/ / __ \/ __  / __  __ \/ __  / __ \                  
-                  / ____/ /_/ / /_/ / / / / / / /_/ / / / /                  
-    __  __       /_/    \____/\__,_/_/ /_/ /_/\__,_/_/ /_/__              __ 
+                     ____            __
+                    / __ \____  ____/ /___ ___  ____ _____
+                   / /_/ / __ \/ __  / __  __ \/ __  / __ \
+                  / ____/ /_/ / /_/ / / / / / / /_/ / / / /
+    __  __       /_/    \____/\__,_/_/ /_/ /_/\__,_/_/ /_/__              __
    / / / /___  ____ ___  ___  v5 /   |  __________(_)____/ /_____ _____  / /_
   / /_/ / __ \/ __  __ \/ _ \   / /| | / ___/ ___/ / ___/ __/ __  / __ \/ __/
- / __  / /_/ / / / / / /  __/  / ___ |(__  |__  ) (__  ) /_/ /_/ / / / / /_  
-/_/ /_/\____/_/ /_/ /_/\___/  /_/  |_/____/____/_/____/\__/\__,_/_/ /_/\__/  
- 
+ / __  / /_/ / / / / / /  __/  / ___ |(__  |__  ) (__  ) /_/ /_/ / / / / /_
+/_/ /_/\____/_/ /_/ /_/\___/  /_/  |_/____/____/_/____/\__/\__,_/_/ /_/\__/
+
 EOF
 }
 header_info
@@ -349,7 +349,7 @@ echo -e "\n Reboot Home Assistant and clear browser cache then Add HACS integrat
 exit
 fi
 if [ "$UPD" == "3" ]; then
-IP=$(hostname -I | awk '{print $1}') 
+IP=$(hostname -I | awk '{print $1}')
 msg_info "Installing FileBrowser"
 curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bash &>/dev/null
 filebrowser config init -a '0.0.0.0' &>/dev/null
@@ -390,7 +390,7 @@ fi
 
 if ! command -v pveversion >/dev/null 2>&1 && [[ ! -f /etc/systemd/system/homeassistant.service ]]; then
   msg_error "No ${APP} Installation Found!"
-  exit 
+  exit
 fi
 
 if ! command -v pveversion >/dev/null 2>&1; then
@@ -409,7 +409,7 @@ else
   FEATURES="nesting=1"
 fi
 TEMP_DIR=$(mktemp -d)
-pushd $TEMP_DIR >/dev/null 
+pushd $TEMP_DIR >/dev/null
 export tz=$timezone
 export DISABLEIPV6=$DISABLEIP6
 export APPLICATION=$APP
@@ -458,7 +458,7 @@ msg_ok "Started LXC Container"
 lxc-attach -n $CTID -- bash -c "$(wget -qLO - https://raw.githubusercontent.com/tteck/Proxmox/main/install/$var_install.sh)" || exit
 IP=$(pct exec $CTID ip a s dev eth0 | awk '/inet / {print $2}' | cut -d/ -f1)
 pct set $CTID -description "# ${APP} LXC
-### https://tteck.github.io/Proxmox/
+### https://github.com/ctrbts/proxmox-scripts/
 <a href='https://ko-fi.com/D1D7EP4GF'><img src='https://img.shields.io/badge/☕-Buy me a coffee-red' /></a>"
 msg_ok "Completed Successfully!\n"
 echo -e "${APP} should be reachable by going to the following URL.

@@ -26,7 +26,7 @@ var_ram="1024"
 var_os="debian"
 var_version="11"
 NSAPP=$(echo ${APP,,} | tr -d ' ')
-var_install="${NSAPP}-v5-install"
+var_install="${NSAPP}-install"
 timezone=$(cat /etc/timezone)
 INTEGER='^[0-9]+$'
 YW=$(echo "\033[33m")
@@ -389,10 +389,10 @@ lxc-attach -n $CTID -- bash -c "$(wget -qLO - https://raw.githubusercontent.com/
 IP=$(pct exec $CTID ip a s dev eth0 | awk '/inet / {print $2}' | cut -d/ -f1)
 pct set $CTID -description "
 # ${APP} ${var_version} LXC
-### https://ctrbts.gitub.io/proxmox-scripts/
-<details>
- <summary>Leer más</summary>
-  <p>puto el que lee ..</p>
-</details>
+## Servidor de base de datos
+*provided by https://github.com/ctrbts/proxmox-scripts/*
+Contents
+- Debian 11 (Bullseye)
+- MariaDB 10.11.2
 "
 msg_ok "Completed Successfully!\n"

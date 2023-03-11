@@ -161,12 +161,12 @@ $STD cp -r assets/ /opt/photoprism/
 msg_ok "Built PhotoPrism"
 
 env_path="/var/lib/photoprism/.env"
-echo " 
+echo "
 PHOTOPRISM_AUTH_MODE='password'
 PHOTOPRISM_ADMIN_PASSWORD='changeme'
 PHOTOPRISM_HTTP_HOST='0.0.0.0'
 PHOTOPRISM_HTTP_PORT='2342'
-PHOTOPRISM_SITE_CAPTION='https://tteck.github.io/Proxmox/'
+PHOTOPRISM_SITE_CAPTION='https://github.com/ctrbts/proxmox-scripts/'
 PHOTOPRISM_STORAGE_PATH='/var/lib/photoprism/storage'
 PHOTOPRISM_ORIGINALS_PATH='/var/lib/photoprism/photos/Originals'
 PHOTOPRISM_IMPORT_PATH='/var/lib/photoprism/photos/Import'
@@ -192,7 +192,7 @@ WantedBy=multi-user.target" >$service_path
 msg_ok "Created Service"
 
 echo "export TERM='xterm-256color'" >>/root/.bashrc
-echo -e "$APPLICATION LXC provided by https://tteck.github.io/Proxmox/\n" > /etc/motd
+echo -e "$APPLICATION LXC provided by https://github.com/ctrbts/proxmox-scripts/\n" > /etc/motd
 chmod -x /etc/update-motd.d/*
 if ! getent shadow root | grep -q "^root:[^\!*]"; then
   msg_info "Customizing Container"

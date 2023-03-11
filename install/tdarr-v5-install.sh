@@ -115,7 +115,7 @@ Group=root
 
 Type=simple
 WorkingDirectory=/opt/tdarr/Tdarr_Server
-ExecStartPre=/opt/tdarr/Tdarr_Updater                  
+ExecStartPre=/opt/tdarr/Tdarr_Updater
 ExecStart=/opt/tdarr/Tdarr_Server/Tdarr_Server
 TimeoutStopSec=20
 KillMode=process
@@ -148,7 +148,7 @@ systemctl enable --now -q tdarr-node.service
 msg_ok "Created Service"
 
 echo "export TERM='xterm-256color'" >>/root/.bashrc
-echo -e "$APPLICATION LXC provided by https://tteck.github.io/Proxmox/\n" > /etc/motd
+echo -e "$APPLICATION LXC provided by https://github.com/ctrbts/proxmox-scripts/\n" > /etc/motd
 chmod -x /etc/update-motd.d/*
 if ! getent shadow root | grep -q "^root:[^\!*]"; then
   msg_info "Customizing Container"

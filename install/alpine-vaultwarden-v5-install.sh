@@ -7,12 +7,12 @@
 
 if [ "$VERBOSE" = "yes" ]; then set -x; STD=""; else STD="silent"; fi
 silent() { "$@" > /dev/null 2>&1; }
-if [ "$DISABLEIPV6" == "yes" ]; then 
+if [ "$DISABLEIPV6" == "yes" ]; then
 $STD sysctl net.ipv6.conf.all.disable_ipv6=1
 $STD sysctl net.ipv6.conf.default.disable_ipv6=1
 echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.d/99-sysctl.conf
 echo "net.ipv6.conf.default.disable_ipv6 = 1" >> /etc/sysctl.d/99-sysctl.conf
-$STD sysctl -p /etc/sysctl.d/99-sysctl.conf 
+$STD sysctl -p /etc/sysctl.d/99-sysctl.conf
 fi
 YW=$(echo "\033[33m")
 RD=$(echo "\033[01;31m")
@@ -112,8 +112,8 @@ EOF
 $STD rc-service vaultwarden start
 $STD rc-update add vaultwarden default
 msg_ok "Installed Vaultwarden"
-echo -e "$APPLICATION LXC provided by https://tteck.github.io/Proxmox/\n" > /etc/motd
-if [[ "${SSH_ROOT}" == "yes" ]]; then 
+echo -e "$APPLICATION LXC provided by https://github.com/ctrbts/proxmox-scripts/\n" > /etc/motd
+if [[ "${SSH_ROOT}" == "yes" ]]; then
   $STD rc-update add sshd
   $STD /etc/init.d/sshd start
 fi

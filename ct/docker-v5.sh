@@ -9,12 +9,12 @@ function header_info {
 clear
 cat <<"EOF"
 
-    ____             __            
+    ____             __
    / __ \____  _____/ /_v5__  _____
   / / / / __ \/ ___/ //_/ _ \/ ___/
- / /_/ / /_/ / /__/ ,< /  __/ /    
-/_____/\____/\___/_/|_|\___/_/     
- 
+ / /_/ / /_/ / /__/ ,< /  __/ /
+/_____/\____/\___/_/|_|\___/_/
+
 EOF
 }
 header_info
@@ -355,10 +355,10 @@ if ! command -v pveversion >/dev/null 2>&1; then
 fi
 
 if [ "$VERB" == "yes" ]; then set -x; fi
-if [ "$FUSE" == "yes" ]; then 
+if [ "$FUSE" == "yes" ]; then
 FEATURES="fuse=1,keyctl=1,nesting=1"
 else
-FEATURES="keyctl=1,nesting=1" 
+FEATURES="keyctl=1,nesting=1"
 fi
 TEMP_DIR=$(mktemp -d)
 pushd $TEMP_DIR >/dev/null
@@ -408,6 +408,6 @@ msg_ok "Started LXC Container"
 lxc-attach -n $CTID -- bash -c "$(wget -qLO - https://raw.githubusercontent.com/tteck/Proxmox/main/install/$var_install.sh)" || exit
 IP=$(pct exec $CTID ip a s dev eth0 | awk '/inet / {print $2}' | cut -d/ -f1)
 pct set $CTID -description "# ${APP} LXC
-### https://tteck.github.io/Proxmox/
+### https://github.com/ctrbts/proxmox-scripts/
 <a href='https://ko-fi.com/D1D7EP4GF'><img src='https://img.shields.io/badge/☕-Buy me a coffee-red' /></a>"
 msg_ok "Completed Successfully!\n"

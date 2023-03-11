@@ -11,10 +11,10 @@ cat <<"EOF"
 
     _   __          __        ____           __
    / | / /___  ____/ /__ v5  / __ \___  ____/ /
-  /  |/ / __ \/ __  / _ \   / /_/ / _ \/ __  / 
- / /|  / /_/ / /_/ /  __/  / _, _/  __/ /_/ /  
-/_/ |_/\____/\__,_/\___/  /_/ |_|\___/\__,_/   
- 
+  /  |/ / __ \/ __  / _ \   / /_/ / _ \/ __  /
+ / /|  / /_/ / /_/ /  __/  / _, _/  __/ /_/ /
+/_/ |_/\____/\__,_/\___/  /_/ |_|\___/\__,_/
+
 EOF
 }
 header_info
@@ -349,7 +349,7 @@ THEME=$(whiptail --title "NODE-RED THEMES" --radiolist --cancel-button Exit-Scri
     "solarized-light" "" OFF \
     3>&1 1>&2 2>&3)
 header_info
-msg_info "Installing ${THEME} Theme"    
+msg_info "Installing ${THEME} Theme"
 cd /root/.node-red
 sed -i 's|//theme: "",|theme: "",|g' /root/.node-red/settings.js
 npm install @node-red-contrib-themes/${THEME} &>/dev/null
@@ -374,7 +374,7 @@ fi
 
 if ! command -v pveversion >/dev/null 2>&1 && [[ ! -d /root/.node-red ]]; then
   msg_error "No ${APP} Installation Found!"
-  exit 
+  exit
 fi
 
 if ! command -v pveversion >/dev/null 2>&1; then
@@ -393,7 +393,7 @@ else
   FEATURES="nesting=1"
 fi
 TEMP_DIR=$(mktemp -d)
-pushd $TEMP_DIR >/dev/null 
+pushd $TEMP_DIR >/dev/null
 export tz=$timezone
 export DISABLEIPV6=$DISABLEIP6
 export APPLICATION=$APP
@@ -422,7 +422,7 @@ msg_ok "Started LXC Container"
 lxc-attach -n $CTID -- bash -c "$(wget -qLO - https://raw.githubusercontent.com/tteck/Proxmox/main/install/$var_install.sh)" || exit
 IP=$(pct exec $CTID ip a s dev eth0 | awk '/inet / {print $2}' | cut -d/ -f1)
 pct set $CTID -description "# ${APP} LXC
-### https://tteck.github.io/Proxmox/
+### https://github.com/ctrbts/proxmox-scripts/
 <a href='https://ko-fi.com/D1D7EP4GF'><img src='https://img.shields.io/badge/☕-Buy me a coffee-red' /></a>"
 msg_ok "Completed Successfully!\n"
 echo -e "${APP} should be reachable by going to the following URL.

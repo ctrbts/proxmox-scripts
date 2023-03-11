@@ -9,12 +9,12 @@ function header_info {
 clear
 cat <<"EOF"
 
-    __  __                        ___              _      __              __ 
+    __  __                        ___              _      __              __
    / / / /___v5____ ___  ___     /   |  __________(_)____/ /_____ _____  / /_
   / /_/ / __ \/ __  __ \/ _ \   / /| | / ___/ ___/ / ___/ __/ __  / __ \/ __/
- / __  / /_/ / / / / / /  __/  / ___ |(__  |__  ) (__  ) /_/ /_/ / / / / /_  
-/_/ /_/\____/_/ /_/ /_/\___/  /_/  |_/____/____/_/____/\__/\__,_/_/ /_/\__/  
- 
+ / __  / /_/ / / / / / /  __/  / ___ |(__  |__  ) (__  ) /_/ /_/ / / / / /_
+/_/ /_/\____/_/ /_/ /_/\___/  /_/  |_/____/____/_/____/\__/\__,_/_/ /_/\__/
+
 EOF
 }
 header_info
@@ -349,7 +349,7 @@ for container in ${CONTAINER_LIST}; do
     DOCKER_COMMAND="$(runlike "${container}")"
     docker rm --force "${container}"
     eval ${DOCKER_COMMAND}
-  fi 
+  fi
 done
 msg_ok "Updated All Containers"
 exit
@@ -371,7 +371,7 @@ echo -e "\n Reboot Home Assistant and clear browser cache then Add HACS integrat
 exit
 fi
 if [ "$UPD" == "4" ]; then
-IP=$(hostname -I | awk '{print $1}') 
+IP=$(hostname -I | awk '{print $1}')
 msg_info "Installing FileBrowser"
 curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bash &>/dev/null
 filebrowser config init -a '0.0.0.0' &>/dev/null
@@ -413,7 +413,7 @@ fi
 if ! command -v pveversion >/dev/null 2>&1 && [[ ! -d /var/lib/docker/volumes/hass_config/_data
  ]]; then
   msg_error "No ${APP} Installation Found!"
-  exit 
+  exit
 fi
 
 if ! command -v pveversion >/dev/null 2>&1; then
@@ -426,10 +426,10 @@ if ! command -v pveversion >/dev/null 2>&1; then
 fi
 
 if [ "$VERB" == "yes" ]; then set -x; fi
-if [ "$FUSE" == "yes" ]; then 
+if [ "$FUSE" == "yes" ]; then
 FEATURES="fuse=1,keyctl=1,nesting=1"
 else
-FEATURES="keyctl=1,nesting=1" 
+FEATURES="keyctl=1,nesting=1"
 fi
 TEMP_DIR=$(mktemp -d)
 pushd $TEMP_DIR >/dev/null
@@ -479,7 +479,7 @@ msg_ok "Started LXC Container"
 lxc-attach -n $CTID -- bash -c "$(wget -qLO - https://raw.githubusercontent.com/tteck/Proxmox/main/install/$var_install.sh)" || exit
 IP=$(pct exec $CTID ip a s dev eth0 | awk '/inet / {print $2}' | cut -d/ -f1)
 pct set $CTID -description "# ${APP} LXC
-### https://tteck.github.io/Proxmox/
+### https://github.com/ctrbts/proxmox-scripts/
 <a href='https://ko-fi.com/D1D7EP4GF'><img src='https://img.shields.io/badge/☕-Buy me a coffee-red' /></a>"
 msg_ok "Completed Successfully!\n"
 echo -e "${APP} should be reachable by going to the following URL.

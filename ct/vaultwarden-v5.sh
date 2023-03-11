@@ -9,12 +9,12 @@ function header_info {
 clear
 cat <<"EOF"
 
- _    __            ____ _       __               __         
-| |  / /___ ___v5__/ / /| |     / /___ __________/ /__  ____ 
+ _    __            ____ _       __               __
+| |  / /___ ___v5__/ / /| |     / /___ __________/ /__  ____
 | | / / __ `/ / / / / __/ | /| / / __ `/ ___/ __  / _ \/ __ \
 | |/ / /_/ / /_/ / / /_ | |/ |/ / /_/ / /  / /_/ /  __/ / / /
-|___/\__,_/\__,_/_/\__/ |__/|__/\__,_/_/   \__,_/\___/_/ /_/ 
-                                                             
+|___/\__,_/\__,_/_/\__/ |__/|__/\__,_/_/   \__,_/\___/_/ /_/
+
 EOF
 }
 header_info
@@ -327,7 +327,7 @@ VAULT=$(curl -s https://api.github.com/repos/dani-garcia/vaultwarden/releases/la
 WVRELEASE=$(curl -s https://api.github.com/repos/dani-garcia/bw_web_builds/releases/latest |
     grep "tag_name" |
     awk '{print substr($2, 2, length($2)-3) }')
-    
+
 UPD=$(whiptail --title "SUPPORT" --radiolist --cancel-button Exit-Script "Spacebar = Select" 11 58 3 \
   "1" "VaultWarden $VAULT" ON \
   "2" "Web-Vault $WVRELEASE" OFF \
@@ -336,7 +336,7 @@ UPD=$(whiptail --title "SUPPORT" --radiolist --cancel-button Exit-Script "Spaceb
 
 header_info
 if [ "$UPD" == "1" ]; then
-echo -e "\n ⚠️  Ensure you set 2vCPU & 3072MiB RAM MIMIMUM!!! \n" 
+echo -e "\n ⚠️  Ensure you set 2vCPU & 3072MiB RAM MIMIMUM!!! \n"
 msg_info "Stopping Vaultwarden"
 systemctl stop vaultwarden.service
 msg_ok "Stopped Vaultwarden"
@@ -408,7 +408,7 @@ fi
 
 if ! command -v pveversion >/dev/null 2>&1 && [[ ! -f /etc/systemd/system/vaultwarden.service ]]; then
   msg_error "No ${APP} Installation Found!"
-  exit 
+  exit
 fi
 
 if ! command -v pveversion >/dev/null 2>&1; then
@@ -427,7 +427,7 @@ else
   FEATURES="nesting=1"
 fi
 TEMP_DIR=$(mktemp -d)
-pushd $TEMP_DIR >/dev/null 
+pushd $TEMP_DIR >/dev/null
 export tz=$timezone
 export DISABLEIPV6=$DISABLEIP6
 export APPLICATION=$APP
@@ -456,7 +456,7 @@ msg_ok "Started LXC Container"
 lxc-attach -n $CTID -- bash -c "$(wget -qLO - https://raw.githubusercontent.com/tteck/Proxmox/main/install/$var_install.sh)" || exit
 IP=$(pct exec $CTID ip a s dev eth0 | awk '/inet / {print $2}' | cut -d/ -f1)
 pct set $CTID -description "# ${APP} LXC
-### https://tteck.github.io/Proxmox/
+### https://github.com/ctrbts/proxmox-scripts/
 <a href='https://ko-fi.com/D1D7EP4GF'><img src='https://img.shields.io/badge/☕-Buy me a coffee-red' /></a>"
 msg_info "Setting Container to Normal Resources"
 pct set $CTID -memory 512

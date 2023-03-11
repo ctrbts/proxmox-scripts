@@ -8,12 +8,12 @@
 function header_info {
 clear
 cat <<"EOF"
-    ____  _______________  __      _       ____________ 
+    ____  _______________  __      _       ____________
    / __ \/ ___/_  __/ __ \/ /_____| | v5  / / ____/ __ )
   / /_/ /\__ \ / / / /_/ / __/ __ \ | /| / / __/ / __  |
- / _, _/___/ // / / ____/ /_/ /_/ / |/ |/ / /___/ /_/ / 
-/_/ |_|/____//_/ /_/    \__/\____/|__/|__/_____/_____/  
-                                                        
+ / _, _/___/ // / / ____/ /_/ /_/ / |/ |/ / /___/ /_/ /
+/_/ |_|/____//_/ /_/    \__/\____/|__/|__/_____/_____/
+
 EOF
 }
 header_info
@@ -352,7 +352,7 @@ else
   FEATURES="nesting=1"
 fi
 TEMP_DIR=$(mktemp -d)
-pushd $TEMP_DIR >/dev/null 
+pushd $TEMP_DIR >/dev/null
 export tz=$timezone
 export DISABLEIPV6=$DISABLEIP6
 export APPLICATION=$APP
@@ -381,7 +381,7 @@ msg_ok "Started LXC Container"
 lxc-attach -n $CTID -- bash -c "$(wget -qLO - https://raw.githubusercontent.com/tteck/Proxmox/main/install/$var_install.sh)" || exit
 IP=$(pct exec $CTID ip a s dev eth0 | awk '/inet / {print $2}' | cut -d/ -f1)
 pct set $CTID -description "# ${APP} LXC
-### https://tteck.github.io/Proxmox/
+### https://github.com/ctrbts/proxmox-scripts/
 <a href='https://ko-fi.com/D1D7EP4GF'><img src='https://img.shields.io/badge/☕-Buy me a coffee-red' /></a>"
 msg_ok "Completed Successfully!\n"
 echo -e "${APP} Setup should be reachable by going to the following URL.

@@ -11,9 +11,9 @@ cat <<"EOF"
 
     ____  __  ______  __________  ____  ____  _________ __  ___
    / __ \/ / / / __ \/_  __/ __ \/ __ \/ __ \/  _/ ___//  |/  /
-  / /_/ / /_/ / / / / / / / / / / /_/ / /_/ // / \__ \/ /|_/ / 
- / ____/ __  / /_/ / / / / /_/ / ____/ _, _// / v5_/ / /  / /  
-/_/   /_/ /_/\____/ /_/  \____/_/   /_/ |_/___//____/_/  /_/   
+  / /_/ / /_/ / / / / / / / / / / /_/ / /_/ // / \__ \/ /|_/ /
+ / ____/ __  / /_/ / / / / /_/ / ____/ _, _// / v5_/ / /  / /
+/_/   /_/ /_/\____/ /_/  \____/_/   /_/ |_/___//____/_/  /_/
 
 EOF
 }
@@ -82,7 +82,7 @@ if [ "$(dpkg --print-architecture)" != "amd64" ]; then
 exit
 fi
 }
- 
+
 function default_settings() {
   echo -e "${DGN}Using Container Type: ${BGN}Unprivileged${CL} ${RD}NO DEVICE PASSTHROUGH${CL}"
   CT_TYPE="1"
@@ -321,7 +321,7 @@ header_info
 
 function update_script() {
 header_info
-echo -e "\n ⚠️  Ensure you set 2vCPU & 3072MiB RAM MIMIMUM!!! \n" 
+echo -e "\n ⚠️  Ensure you set 2vCPU & 3072MiB RAM MIMIMUM!!! \n"
 msg_info "Stopping PhotoPrism"
 sudo systemctl stop photoprism
 msg_ok "Stopped PhotoPrism"
@@ -335,7 +335,7 @@ msg_ok "Cloned PhotoPrism"
 msg_info "Building PhotoPrism"
 sudo make all &>/dev/null
 sudo ./scripts/build.sh prod /opt/photoprism/bin/photoprism &>/dev/null
-sudo rm -rf /opt/photoprism/assets 
+sudo rm -rf /opt/photoprism/assets
 sudo cp -r assets/ /opt/photoprism/ &>/dev/null
 msg_ok "Built PhotoPrism"
 
@@ -362,7 +362,7 @@ fi
 
 if ! command -v pveversion >/dev/null 2>&1 && [[ ! -d /opt/photoprism ]]; then
   msg_error "No ${APP} Installation Found!"
-  exit 
+  exit
 fi
 
 if ! command -v pveversion >/dev/null 2>&1; then
@@ -381,7 +381,7 @@ else
   FEATURES="nesting=1"
 fi
 TEMP_DIR=$(mktemp -d)
-pushd $TEMP_DIR >/dev/null 
+pushd $TEMP_DIR >/dev/null
 export tz=$timezone
 export DISABLEIPV6=$DISABLEIP6
 export APPLICATION=$APP
@@ -410,7 +410,7 @@ msg_ok "Started LXC Container"
 lxc-attach -n $CTID -- bash -c "$(wget -qLO - https://raw.githubusercontent.com/tteck/Proxmox/main/install/$var_install.sh)" || exit
 IP=$(pct exec $CTID ip a s dev eth0 | awk '/inet / {print $2}' | cut -d/ -f1)
 pct set $CTID -description "# ${APP} LXC
-### https://tteck.github.io/Proxmox/
+### https://github.com/ctrbts/proxmox-scripts/
 <a href='https://ko-fi.com/D1D7EP4GF'><img src='https://img.shields.io/badge/☕-Buy me a coffee-red' /></a>"
 msg_info "Setting Container to Normal Resources"
 pct set $CTID -memory 2048

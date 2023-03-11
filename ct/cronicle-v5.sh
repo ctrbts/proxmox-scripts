@@ -9,12 +9,12 @@ function header_info {
 clear
 cat <<"EOF"
 
-   ______                 _      __   
-  / ____/________v5____  (_)____/ /__ 
+   ______                 _      __
+  / ____/________v5____  (_)____/ /__
  / /   / ___/ __ \/ __ \/ / ___/ / _ \
 / /___/ /  / /_/ / / / / / /__/ /  __/
-\____/_/   \____/_/ /_/_/\___/_/\___/ 
-                                      
+\____/_/   \____/_/ /_/_/\___/_/\___/
+
 EOF
 }
 header_info
@@ -331,7 +331,7 @@ header_info
 if [ "$UPD" == "1" ]; then
   if [[ ! -d /opt/cronicle ]]; then
     msg_error "No ${APP} Installation Found!";
-    exit 
+    exit
   fi
 msg_info "Updating ${APP}"
 /opt/cronicle/bin/control.sh upgrade &>/dev/null
@@ -428,7 +428,7 @@ msg_ok "Started LXC Container"
 lxc-attach -n $CTID -- bash -c "$(wget -qLO - https://raw.githubusercontent.com/tteck/Proxmox/main/install/$var_install.sh)" || exit
 IP=$(pct exec $CTID ip a s dev eth0 | awk '/inet / {print $2}' | cut -d/ -f1)
 pct set $CTID -description "# ${APP} LXC
-### https://tteck.github.io/Proxmox/
+### https://github.com/ctrbts/proxmox-scripts/
 <a href='https://ko-fi.com/D1D7EP4GF'><img src='https://img.shields.io/badge/☕-Buy me a coffee-red' /></a>"
 msg_ok "Completed Successfully!\n"
 echo -e "${APP} Primary should be reachable by going to the following URL.

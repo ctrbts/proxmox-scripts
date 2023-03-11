@@ -90,7 +90,7 @@ msg_info "Installing Dependencies"
 $STD apt-get install -y curl
 $STD apt-get install -y sudo
 $STD apt-get install -y mc
-$STD apt-get install -y gnupg 
+$STD apt-get install -y gnupg
 $STD apt-get install -y ca-certificates
 msg_ok "Installed Dependencies"
 
@@ -102,7 +102,7 @@ $STD apt-get -o Dpkg::Options::="--force-confold" install -y sonarr
 msg_ok "Installed Sonarr"
 
 echo "export TERM='xterm-256color'" >>/root/.bashrc
-echo -e "$APPLICATION LXC provided by https://tteck.github.io/Proxmox/\n" > /etc/motd
+echo -e "$APPLICATION LXC provided by https://github.com/ctrbts/proxmox-scripts/\n" > /etc/motd
 chmod -x /etc/update-motd.d/*
 if ! getent shadow root | grep -q "^root:[^\!*]"; then
   msg_info "Customizing Container"
