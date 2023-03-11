@@ -9,24 +9,24 @@ function header_info {
 clear
 cat <<"EOF"
 
-    ____       __    _
-   / __ \___v5/ /_  (_)___ _____
-  / / / / _ \/ __ \/ / __ `/ __ \
- / /_/ /  __/ /_/ / / /_/ / / / /
-/_____/\___/_.___/_/\__,_/_/ /_/
+    _   __          __           __ _____
+   / | / /___  ____/ /__        / // ___/
+  /  |/ / __ \/ __  / _ \  __  / / \__ \
+ / /|  / /_/ / /_/ /  __/ / /_/ / ___/ /
+/_/ |_/\____/\__,_/\___/  \____/ /____/
 
 EOF
 }
 header_info
 echo -e "Loading..."
-APP="Debian"
+APP="NodeJS"
 var_disk="2"
 var_cpu="1"
-var_ram="512"
+var_ram="1024"
 var_os="debian"
 var_version="11"
 NSAPP=$(echo ${APP,,} | tr -d ' ')
-var_install="${NSAPP}-v5-install"
+var_install="${NSAPP}-install"
 timezone=$(cat /etc/timezone)
 INTEGER='^[0-9]+$'
 YW=$(echo "\033[33m")
@@ -131,7 +131,7 @@ function advanced_settings() {
   if [ $exitstatus = 0 ]; then
     echo -e "${DGN}Using Container Type: ${BGN}$CT_TYPE${CL}"
   fi
-  PW1=$(whiptail --inputbox "Set Root Password (needed for root ssh access)" 8 58 --title "PASSWORD (leave blank for automatic login)" --cancel-button Exit-Script 3>&1 1>&2 2>&3)
+  PW1=$(whiptail --inputbox "Set Root Password (needed for root ssh access)" 8 58 --title "PASSWORD(leave blank for automatic login)" --cancel-button Exit-Script 3>&1 1>&2 2>&3)
   exitstatus=$?
   if [ $exitstatus = 0 ]; then
     if [ -z $PW1 ]; then
@@ -321,10 +321,11 @@ header_info
 
 function update_script() {
 header_info
-msg_info "Updating $APP LXC"
+msg_info "Updating ${APP} LXC"
 apt-get update &>/dev/null
 apt-get -y upgrade &>/dev/null
-msg_ok "Updated $APP LXC"
+msg_ok "Updated ${APP} LXC"
+msg_ok "Update Successfull"
 exit
 }
 
@@ -375,13 +376,20 @@ export PCT_OPTIONS="
   -unprivileged $CT_TYPE
   $PW
 "
-bash -c "$(wget -qLO - https://raw.githubusercontent.com/tteck/Proxmox/main/ct/create_lxc.sh)" || exit
+bash -c "$(wget -qLO - https://raw.githubusercontent.com/ctrbts/proxmox-scripts/main/ct/create_lxc.sh)" || exit
 msg_info "Starting LXC Container"
 pct start $CTID
 msg_ok "Started LXC Container"
-lxc-attach -n $CTID -- bash -c "$(wget -qLO - https://raw.githubusercontent.com/tteck/Proxmox/main/install/$var_install.sh)" || exit
+lxc-attach -n $CTID -- bash -c "$(wget -qLO - https://raw.githubusercontent.com/ctrbts/proxmox-scripts/main/install/$var_install.sh)" || exit
 IP=$(pct exec $CTID ip a s dev eth0 | awk '/inet / {print $2}' | cut -d/ -f1)
-pct set $CTID -description "# ${APP} ${var_version} LXC
-### https://github.com/ctrbts/proxmox-scripts/
-<a href='https://ko-fi.com/D1D7EP4GF'><img src='https://img.shields.io/badge/☕-Buy me a coffee-red' /></a>"
+pct set $CTID -description "
+# ${APP} LXC
+## Middleware para servicios API
+#### https://github.com/ctrbts/proxmox-scripts#mariadb-lxc
+- Debian 11.x (Bullseye)
+- Node 16.19.x
+- Nginx 1.18.x
+- PM2
+- Nodemon
+"
 msg_ok "Completed Successfully!\n"

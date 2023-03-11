@@ -14,7 +14,6 @@ Conjunto de scripts para automatizar tareas en Proxmox **PVE 7** _(Proxmox Virtu
 
 - [Debian Stable](#debian-stable)
 - [Ubuntu Core](#ubuntu-core)
-- [AlpineLinux](#alpinelinux)
 
 ## Servidores de base de datos
 
@@ -23,6 +22,7 @@ Conjunto de scripts para automatizar tareas en Proxmox **PVE 7** _(Proxmox Virtu
 
 ## Servidores de archivos
 
+- [NodeJS](#nodejs-lxc)
 - [Nginx Proxy](#nginx-proxy-manager-lxc)
 - [NextCloud](#nextcloudpi-lxc)
 - [RouterOS Mikrotik](#routeros-vm-de-mikrotik)
@@ -108,22 +108,6 @@ Para crear LXC con Ubuntu, ejecute lo siguiente en una shell de Proxmox.
 ⚙️ Para actualizar Ubuntu
 
 Ejecute dentro de la consola del contenedor: *apt update && apt upgrade -y*
-
-### AlpineLinux
-
-Una distribución liviana orientada a la seguridad basada en musl y BusyBox.
-
-Para crear LXC con AlpineLinux, ejecute lo siguiente en una shell de Proxmox.
-
-    bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/alpine.sh)"
-
-⚡ Default Settings: 512MiB RAM - 100MiB Storage - 1vCPU ⚡
-
-⚙️ Default Password alpine
-
-⚙️ Para actualizar Alpine
-
-Ejecute dentro de la consola del contenedor: *apk update && apk upgrade*
 
 ## Servidores de base de datos
 
@@ -266,6 +250,11 @@ Adminer (an pasado phpMinAdmin) es una herramienta de gestión de bases de datos
 Interfaz de administración: IP/adminor/
 
 ## Servidores de archivos
+
+### NodeJS LXC
+
+    bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/nodejs.sh)"
+
 
 ### Nginx Proxy Manager LXC
 
