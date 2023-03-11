@@ -23,7 +23,6 @@ Conjunto de scripts para automatizar tareas en Proxmox **PVE 7** _(Proxmox Virtu
 ## Servidores de archivos
 
 - [NodeJS](#nodejs-lxc)
-- [Nginx Proxy](#nginx-proxy-manager-lxc)
 - [NextCloud](#nextcloudpi-lxc)
 - [RouterOS Mikrotik](#routeros-vm-de-mikrotik)
 
@@ -253,26 +252,11 @@ Interfaz de administración: IP/adminor/
 
 ### NodeJS LXC
 
+Esto instalará NodeJS 16.x, Nginx como proxy reveso, Node PM2 para manejar los procesos al inicio y Nodemo para monitorear cambios
+
     bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/nodejs.sh)"
 
-
-### Nginx Proxy Manager LXC
-
-[Nginx Proxy Manager](https://nginxproxymanager.com/) Expone sus servicios de forma fácil y segura. Para crear un LXC con Nginx Proxy Manager, ejecute lo siguiente en una shell de Proxmox.
-
-    bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/nginx-proxy-manager-v4.sh)"
-
-⚡ Default Settings: 1GB RAM - 3GB Storage - 1vCPU ⚡
-
-⚙️ Puerto de destino `80` y `443`. GUI `ip_lxc:81`
-
-⚙️ Login inicial
-
-usuario `admin@example.com` contraseña `changeme`
-
-⚙️ Actualizar Nginx Proxy Manager
-
-    bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/misc/npm_update.sh)"
+todo: agregar ufw a las dependencias, configurar ufw, agregar un usuario sudo, crear u bloque de servidor en nginx, instalar certbot
 
 ### NextCloudPi LXC
 
