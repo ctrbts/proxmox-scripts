@@ -390,7 +390,7 @@ IP=$(pct exec $CTID ip a s dev eth0 | awk '/inet / {print $2}' | cut -d/ -f1)
 pct set $CTID -description "
 # ${APP} ${var_version} LXC
 ## Servidor de base de datos
-*provided by https://github.com/ctrbts/proxmox-scripts/*
+*provided by https://github.com/ctrbts/proxmox-scripts#mariadb-lxc*
 Contents
 - Debian 11 (Bullseye)
 - MariaDB 10.11.2
