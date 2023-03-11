@@ -89,18 +89,32 @@ msg_ok "Updated Container OS"
 msg_info "Installing Dependencies"
 $STD apt-get -y install \
   sudo \
+  ufw \
   git \
   curl \
   nginx \
   mc
 msg_ok "Installed Dependencies"
 
+msg_info "Add rules to firewall"
+$STD ufw allow 'OpenSSH'
+$STD ufw allow 'Nginx Full'
+$STD ufw enable
+msg_ok "New rules added"
+
+msg_info "Add new sudo user"
+$STD useradd -m peql
+$STD usermod -aG sudo peql
+$STD passwd peql
+$STD su peql
+msg_ok "New sudo user added"
+
 msg_info "Setting up Node.js Repository"
 $STD bash <(curl -fsSL https://deb.nodesource.com/setup_16.x)
 msg_ok "Set up Node.js Repository"
 
 msg_info "Installing Node.js"
-$STD apt-get install -y nodejs
+$STD sudo apt-get install -y nodejs
 msg_ok "Installed Node.js"
 
 msg_info "Installing Yarn"

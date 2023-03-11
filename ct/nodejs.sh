@@ -385,7 +385,7 @@ IP=$(pct exec $CTID ip a s dev eth0 | awk '/inet / {print $2}' | cut -d/ -f1)
 pct set $CTID -description "
 # ${APP} LXC
 ## Middleware para servicios API
-#### https://github.com/ctrbts/proxmox-scripts#mariadb-lxc
+#### https://github.com/ctrbts/proxmox-scripts#nodejs-lxc
 - Debian 11.x (Bullseye)
 - Node 16.19.x
 - Nginx 1.18.x

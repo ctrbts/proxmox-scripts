@@ -256,7 +256,7 @@ Esto instalará NodeJS 16.x, Nginx como proxy reveso, Node PM2 para manejar los 
 
     bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/nodejs.sh)"
 
-todo: agregar ufw a las dependencias, configurar ufw, agregar un usuario sudo, crear u bloque de servidor en nginx, instalar certbot
+todo: crear u bloque de servidor en nginx, instalar certbot
 
 ### NextCloudPi LXC
 
