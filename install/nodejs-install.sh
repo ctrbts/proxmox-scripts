@@ -102,19 +102,12 @@ $STD ufw allow 'Nginx Full'
 $STD ufw enable
 msg_ok "New rules added"
 
-msg_info "Add new sudo user"
-$STD useradd -m peql
-$STD usermod -aG sudo peql
-$STD passwd peql
-$STD su peql
-msg_ok "New sudo user added"
-
 msg_info "Setting up Node.js Repository"
 $STD bash <(curl -fsSL https://deb.nodesource.com/setup_16.x)
 msg_ok "Set up Node.js Repository"
 
 msg_info "Installing Node.js"
-$STD sudo apt-get install -y nodejs
+$STD apt-get install -y nodejs
 msg_ok "Installed Node.js"
 
 msg_info "Installing Yarn"
