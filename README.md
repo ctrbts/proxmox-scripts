@@ -129,8 +129,6 @@ Ejecute dentro de la consola del contenedor: *apk update && apk upgrade*
 
 ### Mariadb LXC
 
-Opción para instalar Adminer
-
 Para crear un LXC con Mariadb, ejecute lo siguiente en una shell de Proxmox.
 
     bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/mariadb.sh)"
@@ -202,8 +200,6 @@ Puede comprobar el estado del servicio con:
 Para actualizar Mariadb, dentro de la consola ejecute:
 
     apt update && apt upgrade -y
-
-**Adminer** es una herramienta de gestión de bases de datos similar a phpMyAdmin que esta incorporada en el contenedor. Para acceder a Adminer vaya a `ip_de_su_contenedor/adminer`
 
 ### PostgreSQL LXC
 

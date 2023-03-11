@@ -98,17 +98,8 @@ $STD apt-get update
 $STD apt-get install -y mariadb-server
 msg_ok "Installed MariaDB"
 
-read -r -p "Would you like to add Adminer? <y/N> " prompt
-if [[ "${prompt,,}" =~ ^(y|yes)$ ]]; then
-  msg_info "Installing Adminer"
-  $STD apt install -y adminer
-  $STD a2enconf adminer
-  systemctl reload apache2
-  msg_ok "Installed Adminer"
-fi
-
 echo "export TERM='xterm-256color'" >>/root/.bashrc
-echo -e "$APPLICATION LXC provided by https://github.com/ctrbts/proxmox-scripts#mariadb-lxc/\n" > /etc/motd
+echo -e "$APPLICATION LXC provided by https://github.com/ctrbts\n" > /etc/motd
 chmod -x /etc/update-motd.d/*
 if ! getent shadow root | grep -q "^root:[^\!*]"; then
   msg_info "Customizing Container"
