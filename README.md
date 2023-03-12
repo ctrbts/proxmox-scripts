@@ -252,7 +252,7 @@ Interfaz de administración: IP/adminor/
 
 ### NodeJS LXC
 
-Para crear un LXC con Node 16.x coomo servidor y Nginx para utilizarlo como proxy inverso, ejecute lo siguiente en una shell de Proxmox:
+Para crear un LXC con un servidor Node y Nginx como proxy inverso, ejecute lo siguiente en una shell de Proxmox:
 
     bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/nodejs.sh)"
 
