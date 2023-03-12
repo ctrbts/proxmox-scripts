@@ -146,7 +146,7 @@ Y en el script interactivo debería contestar lo siguiente:
 
 Crearemos una nueva cuenta llamada admin con las mismas capacidades que la cuenta raíz, pero configurada para la autenticación de contraseñas.
 
-    sudo mariadb
+    mariadb
 
 Creamos un nuevo administrador (cambie el nombre de usuario y la contraseña para que coincidan con sus preferencias)
 
@@ -178,7 +178,7 @@ Reiniciar el lxc
 
 Puede comprobar el estado del servicio con:
 
-    sudo systemctl status mariadb
+    systemctl status mariadb
 
 Para actualizar Mariadb, dentro de la consola ejecute:
 
@@ -193,7 +193,7 @@ PostgreSQL, también conocido como Postgres, es un sistema de gestión de bases 
 
 Para crear un nuevo Proxmox PostgreSQL LXC, ejecute el siguiente en la Concha Proxmox.
 
-bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/postgresql-v4.sh)"
+    bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/postgresql-v4.sh)"
 
 Configuración predeterminada: 1GB de RAM - 4GB Almacenamiento - 1vCPU
 
