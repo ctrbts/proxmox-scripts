@@ -17,8 +17,8 @@ Conjunto de scripts para automatizar tareas en Proxmox **PVE 7** _(Proxmox Virtu
 
 ## Servidores de base de datos
 
-- [MariaDB LXC](#mariadb-lxc)
-- [PostgreSQL LXC](#postgresql-lxc)
+- [MariaDB](#mariadb-lxc)
+- [PostgreSQL](#postgresql-lxc)
 
 ## Servidores de archivos
 
