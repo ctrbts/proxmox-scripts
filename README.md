@@ -250,7 +250,7 @@ Interfaz de administración: IP/adminor/
 
 ## Servidores de archivos
 
-### NodeJS LXC
+### Nodejs LXC
 
 Para crear un LXC con un servidor Node y Nginx como proxy inverso, ejecute lo siguiente en una shell de Proxmox:
 
