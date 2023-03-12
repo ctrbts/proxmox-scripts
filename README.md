@@ -102,7 +102,7 @@ Para crear LXC con Ubuntu, ejecute lo siguiente en una shell de Proxmox.
 
     bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/ubuntu.sh)"
 
-⚡ Default Settings: 512MiB RAM - 2GB Storage - 1vCPU - 22.04 ⚡
+⚡ Default Settings: 512MiB RAM - 2GB Storage - 1vCPU - 22.04 LTS ⚡
 
 ⚙️ Para actualizar Ubuntu
 
@@ -116,9 +116,9 @@ Para crear un LXC con Mariadb, ejecute lo siguiente en una shell de Proxmox.
 
     bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/mariadb.sh)"
 
-Configuración predeterminada: 1GB de RAM - 4GB Almacenamiento - 1vCPU
+⚡ Default Settings: 1GB RAM - 4GB Storage - 1vCPU ⚡
 
-Para permitir a MariaDB escuchar conexiones remotas, necesita editar el archivo predeterminado. Para ello, abra la consola en su MariaDB lxc:
+Para permitir a MariaDB escuchar conexiones remotas, necesita editar el archivo de configuración predeterminado. En la shell del contenedor:
 
     nano /etc/mysql/my.cnf
 
@@ -132,7 +132,7 @@ Para las nuevas instalaciones de MariaDB, el siguiente paso es ejecutar el scrip
 
 Ejecute lo siguiente:
 
-    sudo mysql_secure_installation
+    mysql_secure_installation
 
 Y en el script interactivo debería contestar lo siguiente:
 
