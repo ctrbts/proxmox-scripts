@@ -8,19 +8,19 @@
 function header_info {
 clear
 cat <<"EOF"
-
-    _   __      _               ____                           __  ___
-   / | / /___ _(_)___  _  __   / __ \_________v5_  ____  __   /  |/  /___ _____  ____ _____ ____  _____
-  /  |/ / __  / / __ \| |/_/  / /_/ / ___/ __ \| |/_/ / / /  / /|_/ / __  / __ \/ __  / __  / _ \/ ___/
- / /|  / /_/ / / / / />  <   / ____/ /  / /_/ />  </ /_/ /  / /  / / /_/ / / / / /_/ / /_/ /  __/ /
-/_/ |_/\__, /_/_/ /_/_/|_|  /_/   /_/   \____/_/|_|\__, /  /_/  /_/\__,_/_/ /_/\__,_/\__, /\___/_/
-      /____/                                      /____/                            /____/
+    _   __      _               ____
+   / | / /___ _(_)___  _  __   / __ \_________  _  ____  __
+  /  |/ / __  / / __ \| |/_/  / /_/ / ___/ __ \| |/_/ / / /
+ / /|  / /_/ / / / / />  <   / ____/ /  / /_/ />  </ /_/ /
+/_/ |_/\__, /_/_/ /_/_/|_|  /_/   /_/   \____/_/|_|\__, /
+      /____/                                      /____/
 
 EOF
 }
+
 header_info
 echo -e "Loading..."
-APP="Nginx Proxy Manager"
+APP="Nginx Proxy"
 var_disk="4"
 var_cpu="1"
 var_ram="1024"
@@ -75,6 +75,7 @@ if [ $(pveversion | grep -c "pve-manager/7\.[0-9]") -eq 0 ]; then
 exit
 fi
 }
+
 function ARCH_CHECK() {
 if [ "$(dpkg --print-architecture)" != "amd64" ]; then
   echo -e "\n ${CROSS} This script will not work with PiMox! \n"
@@ -123,6 +124,7 @@ function default_settings() {
   VERB="no"
   echo -e "${BL}Creating a ${APP} LXC using the above default settings${CL}"
 }
+
 function advanced_settings() {
   CT_TYPE=$(whiptail --title "CONTAINER TYPE" --radiolist --cancel-button Exit-Script "Choose Type" 10 58 2 \
     "1" "Unprivileged" ON \
@@ -304,6 +306,7 @@ function advanced_settings() {
     advanced_settings
   fi
 }
+
 function install_script() {
 ARCH_CHECK
 PVE_CHECK
@@ -417,6 +420,7 @@ if [ ! -f /app/config/production.json ]; then
     }
   }
 }
+
 EOF
 fi
 cd /app

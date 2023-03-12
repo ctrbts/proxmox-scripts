@@ -252,7 +252,7 @@ Interfaz de administración: IP/adminor/
 
 ### NodeJS LXC
 
-Esto instalará Node 16, Nginx como proxy inverso, PM2 para manejar los procesos al inicio y Nodemo para monitorear cambios
+Esto instalará un servidor Node 16.x y Nginx para utilizarlo como proxy inverso
 
     bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/nodejs.sh)"
 

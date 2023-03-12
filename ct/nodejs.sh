@@ -17,6 +17,7 @@ cat <<"EOF"
 
 EOF
 }
+
 header_info
 echo -e "Loading..."
 APP="NodeJS"
@@ -74,6 +75,7 @@ if [ $(pveversion | grep -c "pve-manager/7\.[0-9]") -eq 0 ]; then
 exit
 fi
 }
+
 function ARCH_CHECK() {
 if [ "$(dpkg --print-architecture)" != "amd64" ]; then
   echo -e "\n ${CROSS} This script will not work with PiMox! \n"
@@ -122,6 +124,7 @@ function default_settings() {
   VERB="no"
   echo -e "${BL}Creating a ${APP} LXC using the above default settings${CL}"
 }
+
 function advanced_settings() {
   CT_TYPE=$(whiptail --title "CONTAINER TYPE" --radiolist --cancel-button Exit-Script "Choose Type" 10 58 2 \
     "1" "Unprivileged" ON \
@@ -303,6 +306,7 @@ function advanced_settings() {
     advanced_settings
   fi
 }
+
 function install_script() {
 ARCH_CHECK
 PVE_CHECK

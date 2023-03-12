@@ -88,23 +88,17 @@ $STD apt-get -y upgrade
 msg_ok "Updated Container OS"
 
 msg_info "Installing Dependencies"
+$STD apt-get update
 $STD apt-get -y install \
   sudo \
-  ufw \
-  git \
+  mc \
   curl \
-  mc
+  git
 msg_ok "Installed Dependencies"
 
 msg_info "Installing Nginx"
 $STD apt-get install -y nginx
 msg_ok "Installed Nginx"
-
-msg_info "Add rules to firewall"
-$STD ufw allow 'OpenSSH'
-$STD ufw allow 'Nginx Full'
-$STD ufw enable
-msg_ok "Set up firewall rules"
 
 msg_info "Setting up Node.js Repository"
 $STD bash <(curl -fsSL https://deb.nodesource.com/setup_16.x)
@@ -115,19 +109,11 @@ $STD apt-get install -y nodejs
 msg_ok "Installed Node.js"
 
 msg_info "Installing Yarn"
-$STD npm install yarn -g
+$STD npm install --global yarn
 msg_ok "Installed Yarn"
 
-msg_info "Installing Nodemon"
-$STD npm install nodemon -g
-msg_ok "Installed Nodemon"
-
-msg_info "Installing PM2"
-$STD npm install pm2 -g
-msg_ok "Installed PM2"
-
 echo "export TERM='xterm-256color'" >>/root/.bashrc
-echo -e "$APPLICATION LXC provided by https://github.com/ctrbts\n" > /etc/motd
+echo -e "$APPLICATION LXC provided by https://github.com/ctrbts/proxmox-scripts/\n" > /etc/motd
 chmod -x /etc/update-motd.d/*
 if ! getent shadow root | grep -q "^root:[^\!*]"; then
   msg_info "Customizing Container"
