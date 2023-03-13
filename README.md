@@ -262,15 +262,15 @@ Los bloques de servidor (similares a los hosts virtuales en Apache) se pueden us
 
 Creamos el directorio para TU_DOMINIO de la siguiente manera, utilizando el flag para crear los directorios primarios necesarios: ``-p``
 
-    sudo mkdir -p /var/www/TU_DOMINIO/html
+    mkdir -p /var/www/TU_DOMINIO/html
 
 A continuación, asigne la propiedad del directorio con la variable de entorno:$USER
 
-    sudo chown -R $USER:$USER /var/www/TU_DOMINIO/html
+    chown -R $USER:$USER /var/www/TU_DOMINIO/html
 
 Para permitir que el propietario lea, escriba y ejecute los archivos mientras concede solo permisos de lectura y ejecución a grupos y otros, puede ingresar el siguiente comando:
 
-    sudo chmod -R 755 /var/www/TU_DOMINIO
+    chmod -R 755 /var/www/TU_DOMINIO
 
 A continuación, cree una página de muestra utilizando o su editor favorito:
 
@@ -293,7 +293,7 @@ Guarde y cierre el archivo.
 
 Para que Nginx sirva este contenido, es necesario crear un bloque de servidor con las directivas correctas. En lugar de modificar el archivo de configuración predeterminado directamente, hagamos uno nuevo:
 
-    sudo nano /etc/nginx/sites-available/TU_DOMINIO
+    nano /etc/nginx/sites-available/TU_DOMINIO
 
 Pegue el siguiente bloque de configuración, que es similar al predeterminado, pero actualizado para nuestro nuevo directorio y nombre de dominio:
 
@@ -315,7 +315,7 @@ server {
 
 A continuación, habilitemos el archivo creando un enlace desde él al directorio, que Nginx lee durante el inicio:
 
-    sudo ln -s /etc/nginx/sites-available/TU_DOMINIO /etc/nginx/sites-enabled/
+    ln -s /etc/nginx/sites-available/TU_DOMINIO /etc/nginx/sites-enabled/
 
 Nota: Nginx utiliza una práctica común llamada enlaces simbólicos para rastrear cuáles de los bloques de su servidor están habilitados. Crear un enlace simbólico es como crear un acceso directo en el disco, de modo que luego pueda eliminar el acceso directo del directorio mientras mantiene el bloqueo del servidor.
 
@@ -326,17 +326,17 @@ Dos bloques de servidor ahora están habilitados y configurados para responder a
 
 Para evitar un posible problema que puede surgir al agregar nombres de servidor adicionales, es necesario ajustar un solo valor en el archivo de configuración de Nginx.
 
-    sudo nano /etc/nginx/nginx.conf
+    nano /etc/nginx/nginx.conf
 
 Busque la directiva ``server_names_hash_bucket_size`` y descoméntela
 
 A continuación, pruebe para asegurarse de que no haya errores de sintaxis en ninguno de sus archivos Nginx:
 
-    sudo nginx -t
+    nginx -t
 
 Si no hay ningún problema, reinicie Nginx para habilitar sus cambios:
 
-    sudo systemctl restart nginx
+    systemctl restart nginx
 
 Nginx ahora debería estar sirviendo su nombre de dominio. Puede probar esto navegando a , donde debería ver algo como esto: http://TU_DOMINIO
 
