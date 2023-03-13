@@ -344,13 +344,13 @@ Nginx ahora debería estar sirviendo su nombre de dominio. Puede probar esto nav
 
 Instale Certbot y su complemento Nginx con:
 
-    sudo apt install certbot python3-certbot-nginx
+    apt install certbot python3-certbot-nginx
 
 Certbot ahora está listo para usar, pero para que configure automáticamente SSL para Nginx, necesitamos verificar parte de la configuración de Nginx.
 
 Certbot necesita poder encontrar el bloque correcto en su configuración de Nginx para que pueda configurar automáticamente SSL. Específicamente, lo hace buscando una directiva que coincida con el dominio para el que solicita un certificado.
 
-    sudo nano /etc/nginx/sites-available/TU_DOMINIO
+    nano /etc/nginx/sites-available/TU_DOMINIO
 
 Busque la línea ``server_name``
 
@@ -358,15 +358,15 @@ Busque la línea ``server_name``
 
 actualícelo para que coincida co su dominio. Guarde el archivo, salga del editor y compruebe la sintaxis de las ediciones de configuración:
 
-    sudo nginx -t
+    nginx -t
 
 Si recibe un error, vuelva a abrir el archivo de bloqueo del servidor y compruebe si hay errores tipográficos o caracteres faltantes. Una vez que la sintaxis de su archivo de configuración sea correcta, vuelva a cargar Nginx para cargar la nueva configuración:
 
-    sudo systemctl reload nginx
+    systemctl reload nginx
 
 Certbot proporciona una variedad de formas de obtener certificados SSL a través de complementos. El complemento Nginx se encargará de reconfigurar Nginx y volver a cargar la configuración cuando sea necesario. Para usar este complemento, escriba lo siguiente:
 
-    sudo certbot --nginx -d TU_DOMINIO -d www.TU_DOMINIO
+    certbot --nginx -d TU_DOMINIO -d www.TU_DOMINIO
 
 Esto se ejecuta con el complemento, utilizando para especificar los nombres de dominio para los que nos gustaría que el certificado sea válido.
 
@@ -397,7 +397,7 @@ Los certificados de Let's Encrypt solo son válidos durante noventa días. Esto 
 
 Puede consultar el estado del temporizador con:
 
-    sudo systemctl status certbot.timer
+    systemctl status certbot.timer
 
 ```
 Output
@@ -410,7 +410,7 @@ Output
 
 Para probar el proceso de renovación, puede hacer una prueba en seco con:
 
-    sudo certbot renew --dry-run
+    certbot renew --dry-run
 
 Si no ve errores, ya está todo listo. Cuando sea necesario, Certbot renovará sus certificados y volverá a cargar Nginx para recoger los cambios. Si el proceso de renovación automática falla, Let's Encrypt enviará un mensaje al correo electrónico que especificó, advirtiéndole cuando su certificado esté a punto de caducar.
 
