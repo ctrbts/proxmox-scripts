@@ -256,7 +256,163 @@ Para crear un LXC con un servidor Node y Nginx como proxy inverso, ejecute lo si
 
     bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/nodejs.sh)"
 
-todo: crear u bloque de servidor en nginx, instalar certbot
+#### Crear un bloque de servidor en Nginx
+
+Los bloques de servidor (similares a los hosts virtuales en Apache) se pueden usar para encapsular detalles de configuración y alojar más de un dominio desde un solo servidor.
+
+Creamos el directorio para TU_DOMINIO de la siguiente manera, utilizando el flag para crear los directorios primarios necesarios: ``-p``
+
+    sudo mkdir -p /var/www/TU_DOMINIO/html
+
+A continuación, asigne la propiedad del directorio con la variable de entorno:$USER
+
+    sudo chown -R $USER:$USER /var/www/TU_DOMINIO/html
+
+Para permitir que el propietario lea, escriba y ejecute los archivos mientras concede solo permisos de lectura y ejecución a grupos y otros, puede ingresar el siguiente comando:
+
+    sudo chmod -R 755 /var/www/TU_DOMINIO
+
+A continuación, cree una página de muestra utilizando o su editor favorito:
+
+    nano /var/www/TU_DOMINIO/html/index.html
+
+En el interior, agregue el siguiente ejemplo de HTML:
+
+```html
+<html>
+    <head>
+        <title>Welcome to TU_DOMINIO!</title>
+    </head>
+    <body>
+        <h1>Success!  The TU_DOMINIO server block is working!</h1>
+    </body>
+</html>
+```
+
+Guarde y cierre el archivo.
+
+Para que Nginx sirva este contenido, es necesario crear un bloque de servidor con las directivas correctas. En lugar de modificar el archivo de configuración predeterminado directamente, hagamos uno nuevo:
+
+    sudo nano /etc/nginx/sites-available/TU_DOMINIO
+
+Pegue el siguiente bloque de configuración, que es similar al predeterminado, pero actualizado para nuestro nuevo directorio y nombre de dominio:
+
+```nginx
+server {
+        listen 80;
+        listen [::]:80;
+
+        root /var/www/TU_DOMINIO/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name TU_DOMINIO www.TU_DOMINIO;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
+```
+
+A continuación, habilitemos el archivo creando un enlace desde él al directorio, que Nginx lee durante el inicio:
+
+    sudo ln -s /etc/nginx/sites-available/TU_DOMINIO /etc/nginx/sites-enabled/
+
+Nota: Nginx utiliza una práctica común llamada enlaces simbólicos para rastrear cuáles de los bloques de su servidor están habilitados. Crear un enlace simbólico es como crear un acceso directo en el disco, de modo que luego pueda eliminar el acceso directo del directorio mientras mantiene el bloqueo del servidor.
+
+Dos bloques de servidor ahora están habilitados y configurados para responder a las solicitudes basadas en sus directivas
+
+- TU_DOMINIO: Responderá a las solicitudes de TU_DOMINIO y www.TU_DOMINIO
+- default: responderá a cualquier solicitud en el puerto 80 que no coincida con los otros dos bloques.
+
+Para evitar un posible problema que puede surgir al agregar nombres de servidor adicionales, es necesario ajustar un solo valor en el archivo de configuración de Nginx.
+
+    sudo nano /etc/nginx/nginx.conf
+
+Busque la directiva ``server_names_hash_bucket_size`` y descoméntela
+
+A continuación, pruebe para asegurarse de que no haya errores de sintaxis en ninguno de sus archivos Nginx:
+
+    sudo nginx -t
+
+Si no hay ningún problema, reinicie Nginx para habilitar sus cambios:
+
+    sudo systemctl restart nginx
+
+Nginx ahora debería estar sirviendo su nombre de dominio. Puede probar esto navegando a , donde debería ver algo como esto: http://TU_DOMINIO
+
+#### Instalar certbot
+
+Instale Certbot y su complemento Nginx con:
+
+    sudo apt install certbot python3-certbot-nginx
+
+Certbot ahora está listo para usar, pero para que configure automáticamente SSL para Nginx, necesitamos verificar parte de la configuración de Nginx.
+
+Certbot necesita poder encontrar el bloque correcto en su configuración de Nginx para que pueda configurar automáticamente SSL. Específicamente, lo hace buscando una directiva que coincida con el dominio para el que solicita un certificado.
+
+    sudo nano /etc/nginx/sites-available/TU_DOMINIO
+
+Busque la línea ``server_name``
+
+    /etc/nginx/sites-available/TU_DOMINIO
+
+actualícelo para que coincida co su dominio. Guarde el archivo, salga del editor y compruebe la sintaxis de las ediciones de configuración:
+
+    sudo nginx -t
+
+Si recibe un error, vuelva a abrir el archivo de bloqueo del servidor y compruebe si hay errores tipográficos o caracteres faltantes. Una vez que la sintaxis de su archivo de configuración sea correcta, vuelva a cargar Nginx para cargar la nueva configuración:
+
+    sudo systemctl reload nginx
+
+Certbot proporciona una variedad de formas de obtener certificados SSL a través de complementos. El complemento Nginx se encargará de reconfigurar Nginx y volver a cargar la configuración cuando sea necesario. Para usar este complemento, escriba lo siguiente:
+
+    sudo certbot --nginx -d TU_DOMINIO -d www.TU_DOMINIO
+
+Esto se ejecuta con el complemento, utilizando para especificar los nombres de dominio para los que nos gustaría que el certificado sea válido.
+
+Si es la primera vez que se ejecuta, se le pedirá que introduzca una dirección de correo electrónico y acepte los términos del servicio. Después de hacerlo, se comunicará con el servidor Let's Encrypt y, a continuación, ejecutará un desafío para verificar que controla el dominio para el que está solicitando un certificado.certbotcertbot
+
+La configuración se actualizará y Nginx se volverá a cargar para recoger la nueva configuración. terminará con un mensaje que le indicará que el proceso se realizó correctamente y dónde se almacenan sus certificados:
+
+```
+Output
+IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/TU_DOMINIO/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/TU_DOMINIO/privkey.pem
+   Your cert will expire on 2022-08-08. To obtain a new or tweaked
+   version of this certificate in the future, simply run certbot again
+   with the "certonly" option. To non-interactively renew *all* of
+   your certificates, run "certbot renew"
+ - If you like Certbot, please consider supporting our work by:
+
+   Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+   Donating to EFF:                    https://eff.org/donate-le
+```
+
+Los certificados se descargan, instalan y cargan. Intente volver a cargar su sitio web usando y observe el indicador de seguridad de su navegador. Debe indicar que el sitio está debidamente asegurado, generalmente con un icono de candado. Si prueba su servidor utilizando SSL Labs Server Test, obtendrá una calificación A.https://
+
+Los certificados de Let's Encrypt solo son válidos durante noventa días. Esto es para alentar a los usuarios a automatizar su proceso de renovación de certificados. El paquete que instalamos se encarga de esto por nosotros agregando un temporizador systemd que se ejecutará dos veces al día y renovará automáticamente cualquier certificado que esté dentro de los treinta días posteriores al vencimiento.certbot
+
+Puede consultar el estado del temporizador con:
+
+    sudo systemctl status certbot.timer
+
+```
+Output
+● certbot.timer - Run certbot twice daily
+     Loaded: loaded (/lib/systemd/system/certbot.timer; enabled; vendor preset: enabled)
+     Active: active (waiting) since Mon 2022-08-08 19:05:35 UTC; 11s ago
+    Trigger: Tue 2022-08-09 07:22:51 UTC; 12h left
+   Triggers: ● certbot.service
+```
+
+Para probar el proceso de renovación, puede hacer una prueba en seco con:
+
+    sudo certbot renew --dry-run
+
+Si no ve errores, ya está todo listo. Cuando sea necesario, Certbot renovará sus certificados y volverá a cargar Nginx para recoger los cambios. Si el proceso de renovación automática falla, Let's Encrypt enviará un mensaje al correo electrónico que especificó, advirtiéndole cuando su certificado esté a punto de caducar.
 
 ### NextCloudPi LXC
 
