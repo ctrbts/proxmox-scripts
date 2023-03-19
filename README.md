@@ -283,10 +283,10 @@ En el interior, agregue el siguiente ejemplo de HTML:
 ```html
 <html>
     <head>
-        <title>Welcome to TU_DOMINIO!</title>
+        <title>Bienvenido aTU_DOMINIO!</title>
     </head>
     <body>
-        <h1>Success!  The TU_DOMINIO server block is working!</h1>
+        <h1>El bloque de servidor para TU_DOMINIO esta funcionando!</h1>
     </body>
 </html>
 ```
