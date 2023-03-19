@@ -256,6 +256,8 @@ Para crear un LXC con un servidor Node y Nginx como proxy inverso, ejecute lo si
 
     bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/nodejs.sh)"
 
+Lo que sigue se ejecuta sobre una shell dentro del contenedor como root.
+
 #### Crear un bloque de servidor en Nginx
 
 Los bloques de servidor (similares a los hosts virtuales en Apache) se pueden usar para encapsular detalles de configuración y alojar más de un dominio desde un solo servidor.
