@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-# Copyright (c) 2021-2023 tteck
-# Author: tteck (tteckster)
+# Copyright (c) 2021-2023 cuatrobits
+# Author: cuatrobits (ctrbts.dev@gmail.com)
+# Based on: tteck scripts (https://github.com/tteck/Proxmox)
 # License: MIT
-# https://github.com/tteck/Proxmox/raw/main/LICENSE
+# https://github.com/ctrbts/proxmox-scripts/raw/main/LICENSE
 
 if [ "$VERBOSE" = "yes" ]; then set -x; STD=""; else STD="silent"; fi
 silent() { "$@" > /dev/null 2>&1; }
