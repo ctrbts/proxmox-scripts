@@ -33,7 +33,7 @@ Conjunto de scripts para automatizar tareas en Proxmox **PVE 7** _(Proxmox Virtu
 - [Servidor de desarrollo con VSCode](#servidor-de-desarrollo-con-vscode)
 - [Administración del sistema con Webmin](#administración-del-sistema-con-webmin)
 - [Sincronización de archivos](#sincronización-de-archivos)
-- [Cosnola Unifi](#consola-unifi)
+- [Consola Unifi](#consola-unifi)
 
 ## Proxmox Tools
 
