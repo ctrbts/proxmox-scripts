@@ -33,6 +33,7 @@ Conjunto de scripts para automatizar tareas en Proxmox **PVE 7** _(Proxmox Virtu
 - [Servidor de desarrollo con VSCode](#servidor-de-desarrollo-con-vscode)
 - [Administración del sistema con Webmin](#administración-del-sistema-con-webmin)
 - [Sincronización de archivos](#sincronización-de-archivos)
+- [Cosnola Unifi](#consola-unifi)
 
 ## Proxmox Tools
 
@@ -551,3 +552,16 @@ Interfaz de sincronización: su_ip:8384
 Actualizar Syncthing
 
 apt update && apt upgrade -y
+
+### Consola Unifi
+#### UniFi Network Application LXC
+
+La consola de red UniFi es un software que ayuda a administrar y monitorear las redes UniFi (Wi-Fi, Ethernet, etc.) al proporcionar una interfaz de usuario intuitiva y funciones avanzadas. Permite a los administradores de red configurar, monitorear y actualizar dispositivos de red, así como ver estadísticas de red, dispositivos de clientes y eventos históricos. El objetivo de la aplicación es hacer que la gestión de las redes UniFi sea más fácil y eficiente.
+
+Ejecute el siguiente comando en una shell de Proxmox
+
+    bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/ct/unifi.sh)"
+
+⚡ Default Settings: 2GB RAM - 8GB Storage - 2vCPU ⚡
+
+UniFi Interface: (https)IP:8443
