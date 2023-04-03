@@ -390,12 +390,8 @@ lxc-attach -n $CTID -- bash -c "$(wget -qLO - https://raw.githubusercontent.com/
 IP=$(pct exec $CTID ip a s dev eth0 | awk '/inet / {print $2}' | cut -d/ -f1)
 pct set $CTID -description "
 # ${APP} ${var_version} LXC
-## Servidor de aplicaciones
+## Sistema operativo base
 #### https://github.com/ctrbts/proxmox-scripts#ubuntu-lxc
-#### https://sistemas.folp.unlp.edu.ar**
-- Ubuntu 20.04.5
-- Apache 2.4.41
-- PHP 7.4.3
-- MariaDB 10.3.37
+- Ubuntu 22.04.x
 "
 msg_ok "Completed Successfully!\n"
