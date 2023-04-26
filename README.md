@@ -497,8 +497,6 @@ curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bas
 
 ### Servidor de desarrollo con VSCode
 
-Servidor de código VS
-
 VS Code Server es un servicio que puede ejecutar en una máquina de desarrollo remoto, como su PC de escritorio o una máquina virtual (VM). Le permite conectarse de forma segura a esa máquina remota desde cualquier lugar a través de una URL vscode.dev, sin el requisito de SSH.
 
 Para instalar VS Code Server, ejecute el siguiente lugar en la consola LXC.
@@ -509,31 +507,17 @@ VS Code Server Interfaz: IP:8680
 
 ### Administración del sistema con Webmin
 
-Administración del sistema de Webmin
-
 Si prefiere administrar todos los aspectos de su Proxmox LXC desde una interfaz gráfica en lugar de la interfaz de la línea de comandos, Webmin podría ser adecuado para usted. Los beneficios incluyen actualizaciones automáticas diarias de seguridad, copias de seguridad y restauración, gestor de archivos con editor, panel de control web y monitoreo de sistemas preconfigurados con alertas de correo electrónico opcionales.
 
 Para instalar Webmin System Administration (Screenshot), ejecute el siguiente en la consola LXC.
 
     bash -c "$(wget -qLO - https://github.com/ctrbts/proxmox-scripts/raw/main/misc/webmin.sh)"
 
-Webmin Interface: (httpsIP:10000
+Webmin Interface: (IP:10000)
+Nombre de usuario: root
+Contraseña: root
 
-Inigertronate
-
-Nombre de usuario root
-
-contraseña root
-
-Actualizar Webmin
-
-Update from the Webmin UI
-
-Para desinstalar Webmin
-
-Corre en la consola LXC
-
-bash /etc/webmin/uninstall.sh
+Para desinstalar Webmin ejecute en la consola del contenedor `bash /etc/webmin/uninstall.sh`
 
 ### Sincronización de archivos
 
