@@ -388,11 +388,10 @@ msg_ok "Started LXC Container"
 lxc-attach -n $CTID -- bash -c "$(wget -qLO - https://raw.githubusercontent.com/ctrbts/proxmox-scripts/main/install/$var_install.sh)" || exit
 IP=$(pct exec $CTID ip a s dev eth0 | awk '/inet / {print $2}' | cut -d/ -f1)
 pct set $CTID -description "
-# ${APP} LXC
-## Middleware para servicios API
+# ${APP} ${var_version} LXC
 #### https://github.com/ctrbts/proxmox-scripts#nodejs-lxc
 - Debian 11.x (Bullseye)
-- Node 16.19.x
+- Node 16.20.x
 - Nginx 1.18.x
 - PM2
 - Nodemon
