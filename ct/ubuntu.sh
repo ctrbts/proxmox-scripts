@@ -390,7 +390,6 @@ lxc-attach -n $CTID -- bash -c "$(wget -qLO - https://raw.githubusercontent.com/
 IP=$(pct exec $CTID ip a s dev eth0 | awk '/inet / {print $2}' | cut -d/ -f1)
 pct set $CTID -description "
 # ${APP} ${var_version} LXC
-## Sistema operativo base
 #### https://github.com/ctrbts/proxmox-scripts#ubuntu-lxc
 - Ubuntu 22.04.x
 "
